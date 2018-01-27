@@ -8,7 +8,7 @@
     <language>en-gb</language>
     <managingEditor>your@email.com (Daniel Harper)</managingEditor>
     <webMaster>your@email.com (Daniel Harper)</webMaster>
-    <lastBuildDate>Sat, 27 Jan 2018 10:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 27 Jan 2018 12:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://djhworld.github.io/post/index.xml" rel="self" type="application/rss+xml" />
     
@@ -16,7 +16,7 @@
     <item>
       <title>Running Go AWS Lambda functions locally</title>
       <link>https://djhworld.github.io/post/2018/01/27/running-go-aws-lambda-functions-locally/</link>
-      <pubDate>Sat, 27 Jan 2018 10:00:00 +0000</pubDate>
+      <pubDate>Sat, 27 Jan 2018 12:00:00 +0000</pubDate>
       <author>your@email.com (Daniel Harper)</author>
       <guid>https://djhworld.github.io/post/2018/01/27/running-go-aws-lambda-functions-locally/</guid>
       <description>AWS recently announced Go support for Lambda, giving developers more choice over how their functions are written.
