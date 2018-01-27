@@ -2,15 +2,26 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>djh</title>
-    <link>http://localhost:1313/</link>
+    <link>https://djhworld.github.io/</link>
     <description>Recent content on djh</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-gb</language>
     <managingEditor>your@email.com (Daniel Harper)</managingEditor>
     <webMaster>your@email.com (Daniel Harper)</webMaster>
+    <lastBuildDate>Wed, 24 Jan 2018 20:32:47 +0000</lastBuildDate>
     
-	<atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://djhworld.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>about</title>
+      <link>https://djhworld.github.io/about/</link>
+      <pubDate>Wed, 24 Jan 2018 20:32:47 +0000</pubDate>
+      <author>your@email.com (Daniel Harper)</author>
+      <guid>https://djhworld.github.io/about/</guid>
+      <description> software engineer @ BBC
+ twitter: @djhworld code: github/djhworld irc/freenode: djhworld i have a linkedin but never look at it  projects  caniaffordtobuy.co.uk  interests  video games data engineering tinkering with raspberry pis personal finance fiction films with bill murray in them  this website  statically generated using hugo  theme: heather-hugo (tweaked)   </description>
+    </item>
     
   </channel>
 </rss>

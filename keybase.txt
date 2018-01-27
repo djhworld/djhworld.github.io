@@ -1,0 +1,55 @@
+==================================================================
+https://keybase.io/djhworld
+--------------------------------------------------------------------
+
+I hereby claim:
+
+  * I am an admin of https://djhworld.github.io
+  * I am djhworld (https://keybase.io/djhworld) on keybase.
+  * I have a public key ASBuDsFo40OPjQUbBHDIr1dXS_7QOXG7NGajhjKYUIzVnQo
+
+To do so, I am signing this object:
+
+{
+  "body": {
+    "key": {
+      "eldest_kid": "01019263e3dfcb58d6c92a0d47f006bef23c1c799270547c587d433d63ce68e7881b0a",
+      "host": "keybase.io",
+      "kid": "01206e0ec168e3438f8d051b0470c8af57574bfed03971bb3466a3863298508cd59d0a",
+      "uid": "1f481c036938c5f1ba9bbd52f9dc8c19",
+      "username": "djhworld"
+    },
+    "merkle_root": {
+      "ctime": 1517051162,
+      "hash": "5bafbdd3864164b68420c7ade2bfe0e852d22d8f3687310f179bfdb37e8f1d6b1303fc143df16e95e78d0c8abc8071aff4224dbd5786019bb9905888d853b32a",
+      "hash_meta": "062c6b82f4c0412824c2b02dee38ed25d14836ad0c011c06cf1a5fe294680866",
+      "seqno": 1990726
+    },
+    "service": {
+      "hostname": "djhworld.github.io",
+      "protocol": "https:"
+    },
+    "type": "web_service_binding",
+    "version": 1
+  },
+  "client": {
+    "name": "keybase.io go client",
+    "version": "1.0.39"
+  },
+  "ctime": 1517051175,
+  "expire_in": 504576000,
+  "prev": "eca6648fe98064ea47991f48fa1774df85c194a5a690a15a8a4a12e9a9f70fac",
+  "seqno": 12,
+  "tag": "signature"
+}
+
+which yields the signature:
+
+hKRib2R5hqhkZXRhY2hlZMOpaGFzaF90eXBlCqNrZXnEIwEgbg7BaONDj40FGwRwyK9XV0v+0DlxuzRmo4YymFCM1Z0Kp3BheWxvYWTFA0t7ImJvZHkiOnsia2V5Ijp7ImVsZGVzdF9raWQiOiIwMTAxOTI2M2UzZGZjYjU4ZDZjOTJhMGQ0N2YwMDZiZWYyM2MxYzc5OTI3MDU0N2M1ODdkNDMzZDYzY2U2OGU3ODgxYjBhIiwiaG9zdCI6ImtleWJhc2UuaW8iLCJraWQiOiIwMTIwNmUwZWMxNjhlMzQzOGY4ZDA1MWIwNDcwYzhhZjU3NTc0YmZlZDAzOTcxYmIzNDY2YTM4NjMyOTg1MDhjZDU5ZDBhIiwidWlkIjoiMWY0ODFjMDM2OTM4YzVmMWJhOWJiZDUyZjlkYzhjMTkiLCJ1c2VybmFtZSI6ImRqaHdvcmxkIn0sIm1lcmtsZV9yb290Ijp7ImN0aW1lIjoxNTE3MDUxMTYyLCJoYXNoIjoiNWJhZmJkZDM4NjQxNjRiNjg0MjBjN2FkZTJiZmUwZTg1MmQyMmQ4ZjM2ODczMTBmMTc5YmZkYjM3ZThmMWQ2YjEzMDNmYzE0M2RmMTZlOTVlNzhkMGM4YWJjODA3MWFmZjQyMjRkYmQ1Nzg2MDE5YmI5OTA1ODg4ZDg1M2IzMmEiLCJoYXNoX21ldGEiOiIwNjJjNmI4MmY0YzA0MTI4MjRjMmIwMmRlZTM4ZWQyNWQxNDgzNmFkMGMwMTFjMDZjZjFhNWZlMjk0NjgwODY2Iiwic2Vxbm8iOjE5OTA3MjZ9LCJzZXJ2aWNlIjp7Imhvc3RuYW1lIjoiZGpod29ybGQuZ2l0aHViLmlvIiwicHJvdG9jb2wiOiJodHRwczoifSwidHlwZSI6IndlYl9zZXJ2aWNlX2JpbmRpbmciLCJ2ZXJzaW9uIjoxfSwiY2xpZW50Ijp7Im5hbWUiOiJrZXliYXNlLmlvIGdvIGNsaWVudCIsInZlcnNpb24iOiIxLjAuMzkifSwiY3RpbWUiOjE1MTcwNTExNzUsImV4cGlyZV9pbiI6NTA0NTc2MDAwLCJwcmV2IjoiZWNhNjY0OGZlOTgwNjRlYTQ3OTkxZjQ4ZmExNzc0ZGY4NWMxOTRhNWE2OTBhMTVhOGE0YTEyZTlhOWY3MGZhYyIsInNlcW5vIjoxMiwidGFnIjoic2lnbmF0dXJlIn2jc2lnxEAOk7cmv0FhwJr6GwgnDBA4XwXe3CwPxxJtWDHM6SKlva6oH/bCmjDjMIGXBZXDeac4C/jEEsiFRcam4iUCCPYJqHNpZ190eXBlIKRoYXNogqR0eXBlCKV2YWx1ZcQgJbEFFS/bpVx8veBOIIRLl5uD7UDY59lAOV5unkbJxkKjdGFnzQICp3ZlcnNpb24B
+
+And finally, I am proving ownership of this host by posting or
+appending to this document.
+
+View my publicly-auditable identity here: https://keybase.io/djhworld
+
+==================================================================
