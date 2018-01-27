@@ -131,7 +131,7 @@
 
 <div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#bb60d5">_LAMBDA_SERVER_PORT</span><span style="color:#666">=</span><span style="color:#40a070">8001</span> go run lambda.go</code></pre></div>
 
-<p>And then running a client to submit a <code>InvokeRequest</code> to it, you can successfully execute the function end-to-end, which might be useful for integration testing or whatever.</p>
+<p>And then writing a client to submit a <code>InvokeRequest</code> to it, you can successfully execute the function end-to-end, which might be useful for integration testing or whatever.</p>
 
 <div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ go run client.go <span style="color:#40a070">8001</span> <span style="color:#4070a0">&#34;\&#34;daniel\&#34;&#34;</span>
 <span style="color:#4070a0">&#34;DANIEL&#34;</span></code></pre></div>
