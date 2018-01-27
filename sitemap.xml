@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://djhworld.github.io/post/2018/01/27/running-go-aws-lambda-functions-locally/</loc>
+    <lastmod>2018-01-27T10:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://djhworld.github.io/about/</loc>
     <lastmod>2018-01-24T20:32:47+00:00</lastmod>
   </url>
@@ -13,13 +18,19 @@
   </url>
   
   <url>
+    <loc>https://djhworld.github.io/post/</loc>
+    <lastmod>2018-01-27T10:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://djhworld.github.io/tags/</loc>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://djhworld.github.io/</loc>
-    <lastmod>2018-01-24T20:32:47+00:00</lastmod>
+    <lastmod>2018-01-27T10:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   

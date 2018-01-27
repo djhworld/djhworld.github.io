@@ -1,0 +1,167 @@
+<!doctype html> 
+<html lang="en-gb"> 
+<head>
+  <meta charset="utf-8">
+  <title>djh - thoughts</title>
+  <meta name="author" content="Daniel Harper">
+  <meta name="description" content="thoughts">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico">
+  
+  
+  <link rel="stylesheet" href="/style.css" />
+  
+  
+
+   
+
+</head>
+
+<body class="">
+
+  
+
+  <div class="wrap">
+    <header class="mb">
+    <div id="navbar">
+      <a href="/">Home</a>
+      <a href="/about">About</a>
+      <a href="/post/index.xml" type="application/rss+xml" target="_blank">RSS</a>
+    </div>
+
+      <h1 class="h2 m-0"><a href="/">djh</a></h1>
+      <p class="site-description">thoughts</p>
+    </header>
+
+
+<main>
+<article class="post">
+  
+  <h1><a href="https://djhworld.github.io/post/2018/01/27/running-go-aws-lambda-functions-locally/" title="Running Go AWS Lambda functions locally">Running Go AWS Lambda functions locally</a></h1>
+  <p class="small gray">
+    <time datetime="2018-01-27">Saturday, January 27, 2018</time>
+</p>
+  
+  
+
+<p>AWS <a href="https://aws.amazon.com/about-aws/whats-new/2018/01/aws-lambda-supports-go/">recently announced</a> Go support for Lambda, giving developers more choice over how their functions are written.</p>
+
+<p>In an attempt to kick the tires of the new runtime, I found myself rummaging around <a href="https://github.com/aws/aws-lambda-go">the open source library</a> required when writing Lambda functions in Go, and was delighted to find a glimpse into what happens when your function is invoked. </p>
+
+<p>This post is a brief tour of what I’ve gathered, and describes a simple way of invoking your function in a local environment.</p>
+
+<p><em><strong>tl;dr:</strong> AWS Go Lambdas are invoked using net/rpc over TCP and make use of the Go standard library. You can &ldquo;simulate&rdquo; a lambda being invoked, which could be useful for integration tests or sanity checking, <a href="#testing-locally">see below</a> for an example</em></p>
+
+<h2 id="background">Background</h2>
+
+<p>A Go lambda needs two things to run</p>
+
+<ol>
+<li>A handler to handle requests</li>
+<li>A main function that calls <code>lambda.Start(...)</code> with your handler as an argument</li>
+</ol>
+
+<figure>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#007020;font-weight:bold">package</span> main
+
+<span style="color:#007020;font-weight:bold">import</span> (
+    <span style="color:#4070a0">&#34;strings&#34;</span>
+    <span style="color:#4070a0">&#34;github.com/aws/aws-lambda-go/lambda&#34;</span>
+)
+ 
+<span style="color:#007020;font-weight:bold">func</span> ToUpperHandler(input <span style="color:#902000">string</span>) (<span style="color:#902000">string</span>, <span style="color:#902000">error</span>) {
+    <span style="color:#007020;font-weight:bold">return</span> strings.ToUpper(input), <span style="color:#007020;font-weight:bold">nil</span>
+}
+ 
+<span style="color:#007020;font-weight:bold">func</span> main() {
+    lambda.Start(ToUpperHandler)
+}</code></pre></div>
+<figcaption>The simplest of functions that converts a string to uppercase</figcaption>
+</figure>
+
+<p><code>lambda.Start(ToUpperHandler)</code> is where the magic happens, it is a blocking call that will block until the process is killed or an exception is propagated that cannot be handled.</p>
+
+<p>This gives us our first clue that AWS isn’t simply just running your go binary every time a function is invoked, it’s actively listening for requests and passing them to your handler. </p>
+
+<p>Doing it this way has a few performance benefits, it allows you to set up expensive, thread safe dependencies up front so they are warm if your function is called more than once<sup class="footnote-ref" id="fnref:1"><a rel="footnote" href="#fn:1">1</a></sup>.</p>
+
+<h2 id="looking-underneath">Looking underneath</h2>
+
+<p>Taking a look at the <a href="https://github.com/aws/aws-lambda-go/">code under the hood</a>, we can see that it:</p>
+
+<ul>
+<li><a href="https://github.com/aws/aws-lambda-go/blob/d050bf32adc65f57141c11e49a34b67610a7c45d/lambda/entry.go#L39">Creates a TCP server</a> listening on a port defined by the environment variable <code>_LAMBDA_SERVER_PORT</code></li>
+<li>Uses the <a href="https://golang.org/pkg/net/rpc/">net/rpc</a> package to handle <code>Ping</code> and <code>Invoke</code> requests from remote clients</li>
+<li>Uses the <a href="https://golang.org/pkg/context/">context</a> package to store and manage state </li>
+<li>Uses the <a href="https://golang.org/pkg/encoding/json/">encoding/json</a> package to perform SerDe for objects you pass to and from your function</li>
+</ul>
+
+<p>The use of net/rpc is really neat in a way, just plain old Go standard library code.</p>
+
+<h2 id="remote-calls">Remote calls</h2>
+
+<p>The two methods you can call via RPC are in <a href="https://github.com/aws/aws-lambda-go/blob/d050bf32adc65f57141c11e49a34b67610a7c45d/lambda/function.go#L24">function.go</a> and they allow remote clients to:</p>
+
+<ul>
+<li>Perform <a href="https://github.com/aws/aws-lambda-go/blob/d050bf32adc65f57141c11e49a34b67610a7c45d/lambda/function.go#L19"><code>Ping</code></a> requests by sending a <a href="https://github.com/aws/aws-lambda-go/blob/d050bf32adc65f57141c11e49a34b67610a7c45d/lambda/messages/messages.go#L5"><code>*messages.PingRequest</code></a> object, and unsurprisingly this does exactly what it says on the tin. I&rsquo;m assuming AWS use this to check liveliness of your function and whether it is still reachable wherever they are hosting it.</li>
+<li>Perform <a href="https://github.com/aws/aws-lambda-go/blob/d050bf32adc65f57141c11e49a34b67610a7c45d/lambda/function.go#L24"><code>Invoke</code></a> requests by sending a <a href="https://github.com/aws/aws-lambda-go/blob/d050bf32adc65f57141c11e49a34b67610a7c45d/lambda/messages/messages.go#L16"><code>*messages.InvokeRequest</code></a> object,
+
+<ul>
+<li>I&rsquo;m wondering what the <code>Deadline</code> attribute is for. At one point in the execution path, they use whatever this is set to with the <code>context.WithDeadline</code> function, which leads me to believe this might be the timeout you have configured against your lambda.</li>
+</ul></li>
+</ul>
+
+<p>These functions will be called by something in AWS that is managing the lifetime of an invocation.</p>
+
+<h2 id="diagram">Diagram</h2>
+
+<p>To help visualise this, I drew this crude, overly simplified diagram that describes the above interactions. Obviously the AWS Lambda service has a lot of components and infrastructure that we are not privy to, but I think conceptually it&rsquo;s <em>mostly</em> right.</p>
+
+<p><img src="/img/go-execution.png" style="max-width:120%; border-radius:3%" /></p>
+
+<h2 id="testing-locally">Testing locally</h2>
+
+<p>As the lambda is just listening on a port over TCP, it&rsquo;s pretty simple to test the above behaviour locally.</p>
+
+<p>By forcing the lambda to run on a known port<sup class="footnote-ref" id="fnref:2"><a rel="footnote" href="#fn:2">2</a></sup></p>
+
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#bb60d5">_LAMBDA_SERVER_PORT</span><span style="color:#666">=</span><span style="color:#40a070">8001</span> go run lambda.go</code></pre></div>
+
+<p>And then running a client to submit a <code>InvokeRequest</code> to it, you can successfully execute the function end-to-end, which might be useful for integration testing or whatever.</p>
+
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ go run client.go <span style="color:#40a070">8001</span> <span style="color:#4070a0">&#34;\&#34;daniel\&#34;&#34;</span>
+<span style="color:#4070a0">&#34;DANIEL&#34;</span></code></pre></div>
+
+<p>I&rsquo;ve created a small library imaginatively called <a href="https://github.com/djhworld/go-lambda-invoke">go-lambda-invoke</a> that wraps up this logic, meaning you can just make the following call in your code</p>
+
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go">response, err <span style="color:#666">:=</span> golambdainvoke.Run(<span style="color:#40a070">8001</span>, <span style="color:#4070a0">&#34;daniel&#34;</span>)</code></pre></div>
+
+<p>It probably has limited uses, in most cases just writing plain old unit tests for your logic should be sufficient, rather than testing the scaffolding AWS erects around it. However I could see it being useful if you want to test that you&rsquo;ve built a valid <code>linux</code> binary and perform some pre-deploy sanity tests or something.</p>
+
+<h2 id="conclusion">Conclusion</h2>
+
+<p>Speculating over what AWS are doing under the hood with Lambda is a pastime that has circled the internet ever since it launched, and this post doesn&rsquo;t really reveal much to answer that question. Is it containers? Who knows. Probably.</p>
+
+<p>But I think looking at how the Go programming model works, a plain old TCP server that allows RPC clients to connect to it, gives us at least a small glimpse into the interactions AWS are performing with your application.</p>
+<div class="footnotes">
+
+<hr />
+
+<ol>
+<li id="fn:1">See <a href="https://docs.aws.amazon.com/lambda/latest/dg/go-programming-model-handler-types.html#go-programming-model-handler-execution-environment-reuse">Using Global State to Maximize Performance</a>
+ <a class="footnote-return" href="#fnref:1"><sup>[return]</sup></a></li>
+<li id="fn:2">Note the environment variable <code>_LAMBDA_SERVER_PORT</code> might change between library versions
+ <a class="footnote-return" href="#fnref:2"><sup>[return]</sup></a></li>
+</ol>
+</div>
+
+</article>
+</main>
+</div>
+
+
+
+</body>
+</html>
