@@ -7,7 +7,7 @@
   <title>Running Go AWS Lambda functions locally - djhworld</title>
   
 
-   <meta name="author" content="Daniel Harper">
+   <meta name="author" content="">
   <meta name="description" content="thoughts">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   
@@ -87,7 +87,7 @@
 
 <p>This gives us our first clue that AWS isn’t simply just running your go binary every time a function is invoked, it’s actively listening for requests and passing them to your handler. </p>
 
-<p>Doing it this way has a few performance benefits, it allows you to set up expensive, thread safe dependencies up front so they are warm if your function is called more than once<sup class="footnote-ref" id="fnref:1"><a rel="footnote" href="#fn:1">1</a></sup>.</p>
+<p>Doing it this way has a few performance benefits, it allows you to set up expensive, thread safe dependencies up front so they are warm if your function is called more than once<sup class="footnote-ref" id="fnref:1"><a href="#fn:1">1</a></sup>.</p>
 
 <h2 id="looking-underneath">Looking underneath</h2>
 
@@ -127,7 +127,7 @@
 
 <p>As the lambda is just listening on a port over TCP, it&rsquo;s pretty simple to test the above behaviour locally.</p>
 
-<p>By forcing the lambda to run on a known port<sup class="footnote-ref" id="fnref:2"><a rel="footnote" href="#fn:2">2</a></sup></p>
+<p>By forcing the lambda to run on a known port<sup class="footnote-ref" id="fnref:2"><a href="#fn:2">2</a></sup></p>
 
 <div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#bb60d5">_LAMBDA_SERVER_PORT</span><span style="color:#666">=</span><span style="color:#40a070">8001</span> go run lambda.go</code></pre></div>
 

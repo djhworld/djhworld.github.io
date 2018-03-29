@@ -2,7 +2,7 @@
 <!doctype html> 
 <html lang="en-gb"> 
 <head>
-	<meta name="generator" content="Hugo 0.34" />
+	<meta name="generator" content="Hugo 0.37" />
   <meta charset="utf-8">
 
     
@@ -11,7 +11,7 @@
    
   
 
-   <meta name="author" content="Daniel Harper">
+   <meta name="author" content="">
   <meta name="description" content="thoughts">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   
@@ -45,6 +45,19 @@
     </header>
 
 <main class="posts">
+  
+  <article class="post">
+      <h1><a href="https://djhworld.github.io/post/2018/03/29/using-hyperloglog-in-production-a-retrospective/">Using HyperLogLog in production, a retrospective</a></h1>
+      <p class="small gray">
+    <time datetime="2018-03-29">Thursday, March 29, 2018</time>
+</p>
+      <p>A few years ago I was involved in a project that required us to provide a time series metric on how many concurrent users were using our products, and what quality of service they were receiving.
+On embarking on this journey, it quickly became apparent that the tricky part would be doing the count of unique concurrent users, over a set of dimensions in one minute windows. We&rsquo;d run into the classic count-distinct problem.</p>
+      
+      
+        <p class="small"><a href="https://djhworld.github.io/post/2018/03/29/using-hyperloglog-in-production-a-retrospective/">Read more »</a></p>
+      
+  </article>
   
   <article class="post">
       <h1><a href="https://djhworld.github.io/post/2018/01/27/running-go-aws-lambda-functions-locally/">Running Go AWS Lambda functions locally</a></h1>

@@ -1,0 +1,77 @@
+<!doctype html> 
+<html lang="en-gb"> 
+<head>
+  <meta charset="utf-8">
+
+   
+  <title>Using HyperLogLog in production, a retrospective - djhworld</title>
+  
+
+   <meta name="author" content="">
+  <meta name="description" content="thoughts">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico">
+  
+  
+  <link rel="stylesheet" href="/style.css" />
+  
+   
+
+</head>
+
+<body class="">
+
+  
+
+  <div class="wrap">
+    <header class="mb">
+    <div id="navbar">
+      <a href="/">home</a>
+      <a href="/about">about</a>
+      <a href="/post/index.xml" type="application/rss+xml" target="_blank" title="never let rss die">rss</a>
+    </div>
+
+      <h1 class="h2 m-0"><a href="/" title="daniel harper">djhworld</a></h1>
+      <p class="site-description">thoughts</p>
+    </header>
+
+
+<main>
+<article class="post">
+  
+  <h1><a href="https://djhworld.github.io/post/2018/03/29/using-hyperloglog-in-production-a-retrospective/" title="Using HyperLogLog in production, a retrospective">Using HyperLogLog in production, a retrospective</a></h1>
+  <p class="small gray">
+    <time datetime="2018-03-29">Thursday, March 29, 2018</time>
+</p>
+  
+  <p>A few years ago I was involved in a project that required us to provide a time series metric on how many concurrent users were using our products, and what quality of service they were receiving.</p>
+
+<p>On embarking on this journey, it quickly became apparent that the tricky part would be doing the count of unique concurrent users, over a set of dimensions in one minute windows. We&rsquo;d run into the classic <a href="https://en.wikipedia.org/wiki/Count-distinct_problem">count-distinct problem</a>.</p>
+
+<p>Our dataset was stored in Amazon S3, with <a href="https://prestodb.io/">PrestoDB</a> as our query backend, and the query we were running was slow and difficult to scale. As you can imagine, running <code>count(distinct)</code> on thousands of anonymous session IDs across millions of records isn&rsquo;t an easy problem to solve. Well, until someone pointed us in the direction of the <a href="https://prestodb.io/docs/current/functions/aggregate.html#approx_distinct"><code>approx_distinct</code></a> function.</p>
+
+<p><em><strong>tl;dr:</strong> We tried using <a href="https://en.wikipedia.org/wiki/HyperLogLog">HyperLogLog</a> over fine grained time series data in production, but at the time it was not working as well as we&rsquo;d hoped. I wanted to explore HyperLogLog further though as I thought it was cool, so spent some time building <a href="https://djhworld.github.io/hyperloglog/">HyperLogLog Playground</a>, a website to help visualise what this cool algorithm is doing under the hood.</em></p>
+
+<p>By trading away some degree of accuracy, <code>approx_distinct</code> gave us a result in a much quicker time, with what looked like a reasonable trade off for production use. However, after a few weeks, it was becoming obvious that, while the speed of the query was satisfactory, sometimes the result added noise. You would see that over one minute windows, the line on our graphs would deviate in a sporadic fashion.</p>
+
+<p>This meant users were questioning the validity of the data, was it the error in the approximation, or were there user impacting problems? In this case, <em>at the time</em> it seemed the approximate count was the wrong choice for fine grained time series analysis, and meant we had to pivot towards a streaming data pipeline that would give a fully accurate picture, at the cost of latency, added infrastructure and complexity.</p>
+
+<p>Since then, it looks like the Presto contributors <a href="https://github.com/prestodb/presto/pull/9397">implemented a change</a> to increase the precision options of <code>approx_distinct</code>, so this might have alleviated our noise problem, but we had moved on by that point. Our users liked having a near real time, accurate figure from the new pipeline.</p>
+
+<p>So while, at the time, <code>approx_distinct</code> did not work for us, I was still intrigued by what <code>approx_distinct</code> was actually doing. What made it so quick? How could it get so close to the actual figure? This line of questioning inspired me to create a small website called <a href="https://djhworld.github.io/hyperloglog/">HyperLogLog Playground</a> where I could somewhat consolidate my understanding, while learning a bit of Javascript on the way. It was a fun exercise and I hope people like it.</p>
+
+<p><img src="/img/hyperloglog-playground.png" title="hyperloglog playground" style="max-width:40%;" />
+<img src="/img/hyperloglog-playground-add.png" title="hyperloglog playground" style=" max-width:40%;" /></p>
+
+<p>Whenever you are presented with a count distinct problem, it&rsquo;s always worth keeping HyperLogLog in mind as a tool to use, but just be 100% sure that the small loss of accuracy is tolerable, and for time series data make sure you test it against a variety of scenarios.</p>
+
+</article>
+</main>
+</div>
+
+
+
+</body>
+</html>
