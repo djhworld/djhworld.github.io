@@ -6,10 +6,21 @@
     <description>Recent content on djhworld</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-gb</language>
-    <lastBuildDate>Thu, 29 Mar 2018 12:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 12 Aug 2018 09:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://djhworld.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>I thought I found a browser security bug</title>
+      <link>https://djhworld.github.io/post/2018/08/12/i-thought-i-found-a-browser-security-bug/</link>
+      <pubDate>Sun, 12 Aug 2018 09:00:00 +0000</pubDate>
+      
+      <guid>https://djhworld.github.io/post/2018/08/12/i-thought-i-found-a-browser-security-bug/</guid>
+      <description>A few weeks ago I thought I&amp;rsquo;d stumbled across something really bad when just casually browsing the web. It all started on a financial information website, upon on clicking a link, the page partially loaded some of its content, then, without warning, redirected the browser to a completely different domain with some weird spam/search engine content on it, from a known domain squatter.
+Strange&amp;hellip;
+After refreshing a few times, it was still doing it.</description>
+    </item>
     
     <item>
       <title>Using HyperLogLog in production, a retrospective</title>
@@ -39,6 +50,42 @@ In an attempt to kick the tires of the new runtime, I found myself rummaging aro
       <guid>https://djhworld.github.io/about/</guid>
       <description> daniel harper software engineer @ BBC
  keybase: keybase.io/djhworld twitter: @djhworld code: github/djhworld irc/freenode: djhworld  projects  caniaffordtobuy.co.uk  interests  video games data engineering tinkering with raspberry pis personal finance fiction films with bill murray in them  this website  statically generated using hugo  theme: heather-hugo (tweaked)   </description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://djhworld.github.io/demos/embed-issue/demo/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://djhworld.github.io/demos/embed-issue/demo/</guid>
+      <description>   Flash embed: type=&#39;application/x-shockwave-flash&#39;   Video embed: type=&#39;video/quicktime&#39;   type=&#39;video/webm&#39;   type=&#39;video/mp4&#39;   Audio embed: type=&#39;audio/mpeg&#39;     </description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://djhworld.github.io/demos/embed-issue/supposed-to-be-audio/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://djhworld.github.io/demos/embed-issue/supposed-to-be-audio/</guid>
+      <description>    var i = 0; setInterval(function() { i = i + 1; document.getElementById(&#34;text&#34;).innerHTML=&#34;&#34; + i + &#34; no audio content here, embedding the page instead&#34;; }, 1000);   </description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://djhworld.github.io/demos/embed-issue/supposed-to-be-flash/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://djhworld.github.io/demos/embed-issue/supposed-to-be-flash/</guid>
+      <description>    var i = 0; setInterval(function() { i = i + 1; document.getElementById(&#34;text&#34;).innerHTML=&#34;&#34; + i + &#34; no flash content here, embedding the page instead&#34;; }, 1000);   </description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://djhworld.github.io/demos/embed-issue/supposed-to-be-video/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://djhworld.github.io/demos/embed-issue/supposed-to-be-video/</guid>
+      <description>    var i = 0; setInterval(function() { i = i + 1; document.getElementById(&#34;text&#34;).innerHTML=&#34;&#34; + i + &#34; no video content here, embedding the page instead&#34;; }, 1000);   </description>
     </item>
     
   </channel>

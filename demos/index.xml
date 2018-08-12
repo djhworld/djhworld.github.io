@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Demos on djhworld</title>
+    <link>https://djhworld.github.io/demos/</link>
+    <description>Recent content in Demos on djhworld</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-gb</language>
+    
+	<atom:link href="https://djhworld.github.io/demos/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title></title>
+      <link>https://djhworld.github.io/demos/embed-issue/demo/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://djhworld.github.io/demos/embed-issue/demo/</guid>
+      <description>   Flash embed: type=&#39;application/x-shockwave-flash&#39;   Video embed: type=&#39;video/quicktime&#39;   type=&#39;video/webm&#39;   type=&#39;video/mp4&#39;   Audio embed: type=&#39;audio/mpeg&#39;     </description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://djhworld.github.io/demos/embed-issue/supposed-to-be-audio/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://djhworld.github.io/demos/embed-issue/supposed-to-be-audio/</guid>
+      <description>    var i = 0; setInterval(function() { i = i + 1; document.getElementById(&#34;text&#34;).innerHTML=&#34;&#34; + i + &#34; no audio content here, embedding the page instead&#34;; }, 1000);   </description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://djhworld.github.io/demos/embed-issue/supposed-to-be-flash/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://djhworld.github.io/demos/embed-issue/supposed-to-be-flash/</guid>
+      <description>    var i = 0; setInterval(function() { i = i + 1; document.getElementById(&#34;text&#34;).innerHTML=&#34;&#34; + i + &#34; no flash content here, embedding the page instead&#34;; }, 1000);   </description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://djhworld.github.io/demos/embed-issue/supposed-to-be-video/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://djhworld.github.io/demos/embed-issue/supposed-to-be-video/</guid>
+      <description>    var i = 0; setInterval(function() { i = i + 1; document.getElementById(&#34;text&#34;).innerHTML=&#34;&#34; + i + &#34; no video content here, embedding the page instead&#34;; }, 1000);   </description>
+    </item>
+    
+  </channel>
+</rss>

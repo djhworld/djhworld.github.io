@@ -1,0 +1,185 @@
+<!doctype html> 
+<html lang="en-gb"> 
+<head>
+  <meta charset="utf-8">
+
+   
+  <title>I thought I found a browser security bug - djhworld</title>
+  
+
+   <meta name="author" content="">
+  <meta name="description" content="thoughts">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico">
+  
+  
+  <link rel="stylesheet" href="/style.css" />
+  
+   
+
+</head>
+
+<body class="">
+
+  
+
+  <div class="wrap">
+    <header class="mb">
+      <h1 class="h2 m-0"><a href="/" title="daniel harper">djhworld</a></h1>
+    <div id="navbar">
+      <a href="/">home</a>
+      <a href="/about">about</a>
+      <a href="/post/index.xml" type="application/rss+xml" target="_blank" title="never let rss die">rss</a>
+    </div>
+
+
+      <p class="site-description">thoughts</p>
+
+      <hr/>
+    </header>
+
+
+<main>
+<article class="post">
+  
+  <h1><a href="https://djhworld.github.io/post/2018/08/12/i-thought-i-found-a-browser-security-bug/" title="I thought I found a browser security bug">I thought I found a browser security bug</a></h1>
+  <p class="small gray">
+    <time datetime="2018-08-12">Sunday, August 12, 2018</time>
+</p>
+  
+  
+
+<p>A few weeks ago I thought I&rsquo;d stumbled across something really bad when just casually browsing the web. It all started on a financial information website, upon on clicking a link, the page partially loaded some of its content, then, without warning, redirected the browser to a completely different domain with some weird spam/search engine content on it, <a href="https://dyn.com/blog/ne-body-out-there/">from a known domain squatter</a>.</p>
+
+<p><em>Strange&hellip;</em></p>
+
+<p>After refreshing a few times, it was still doing it. Oddly, this behaviour seemed to only appear in Firefox; Chrome and Safari did not exhibit the same. This was a Firefox thing, I was sure of it!</p>
+
+<p>After digging into the source of the affected website, it became apparent that something seemed off with this <code>&lt;embed&gt;</code> tag for flash content:</p>
+
+<figure>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;<span style="color:#062873;font-weight:bold">embed</span> 
+  <span style="color:#4070a0">id</span><span style="color:#666">=</span><span style="color:#4070a0">&#34;button&#34;</span> 
+  <span style="color:#4070a0">src</span><span style="color:#666">=</span><span style="color:#4070a0">&#34;http://&lt;squatters-domain&gt;/zclip/js/ZeroClipboard.swf&#34;</span> 
+  <span style="color:#4070a0">type</span><span style="color:#666">=</span><span style="color:#4070a0">&#34;application/x-shockwave-flash&#34;</span>&gt;
+&lt;/<span style="color:#062873;font-weight:bold">embed</span>&gt;</code></pre></div>
+<figcaption>Always host your own</figcaption>
+</figure>
+
+<p>They had hardcoded a URL to a SWF file on a domain since taken over by a squatter. A quick look on <a href="https://archive.org">waybackmachine</a> suggested the previous owner was a developer hosting some code they had written, but had since let the domain expire.</p>
+
+<p>So instead, the browser gets whatever is now being served. This is bad in itself because they could craft a malicious SWF file to do nefarious things if they were really inclined.</p>
+
+<p>However, even if they did return a SWF file, it didn&rsquo;t explain why the redirect  was occurring, because I don&rsquo;t have Flash installed on my computer.</p>
+
+<h3 id="flash-or-no-flash">Flash or no flash</h3>
+
+<p>This is where I begun to think this was a security issue, because the response for the &lsquo;swf&rsquo; request was HTML with some javascript in it, with the smoking gun being right here:</p>
+
+<figure>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#007020;font-weight:bold">if</span> (top.location <span style="color:#666">!=</span> location){
+  top.location.href <span style="color:#666">=</span> location.protocol <span style="color:#666">+</span> <span style="color:#4070a0">&#34;//&#34;</span> 
+                        <span style="color:#666">+</span> location.host 
+                        <span style="color:#666">+</span> location.pathname;
+}
+</code></pre></div>
+<figcaption>Get the browser to it!</figcaption>
+</figure>
+
+<p>Setting <a href="https://developer.mozilla.org/en-US/docs/Web/API/Window/top">top.location.href</a> was causing the redirect to happen.</p>
+
+<p><em>So wait a minute, the affected website had an <code>&lt;embed&gt;</code> tag in it, expecting some flash content, but got served some HTML+Javascript instead, which it embedded and executed? That seemed weird fallback behaviour to me.</em></p>
+
+<p>I raised this on <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1473833">bugzilla</a> because at the time my initial thought was this was only affecting Firefox.</p>
+
+<p>After writing a small application to mimic the issue, the browsers behaved differently when it came to setting the <code>type</code> to <code>application/x-shockwave-flash</code><sup class="footnote-ref" id="fnref:1"><a href="#fn:1">1</a></sup></p>
+
+<ul>
+<li>Chrome displayed a &ldquo;click here to run flash&rdquo; placeholder
+
+<ul>
+<li>After enabling flash, it did not embed the response (i.e. it did nothing)</li>
+</ul></li>
+<li>Firefox embedded the response so executed the javascript</li>
+<li>Safari displayed a &ldquo;Missing Plug-in&rdquo; placeholder</li>
+</ul>
+
+<figure>
+    <img style="margin-left:auto; margin-right:auto;display:block" src="/img/safari-missing.png" title="Safari" />
+    <img style="width:250px; margin-left:auto; margin-right:auto;display:block" src="/img/chrome-placeholder.png" title="Chrome" />
+<figcaption style="margin-top:1.0rem">Examples of the placeholders in Safari/Chrome</figcaption>
+</figure>
+
+<p>After further investigation it turns out the &ldquo;problem&rdquo; can be replicated in Chrome too, using other MIME types like <code>type=&quot;video/webm&quot;</code>. In this particular case the behaviour changed slightly</p>
+
+<ul>
+<li>Chrome embedded the response so executed the javascript</li>
+<li>Firefox embedded the response so executed the javascript</li>
+<li>Safari displayed a &ldquo;Missing Plug-in&rdquo; placeholder</li>
+</ul>
+
+<p>I tried this with a few different MIME types and got differing results. You can see this in action on this <a href="/demos/embed-issue/demo">demo page I built</a>. Try it out on different browsers to see how they behave. Note if you have Flash or Quicktime installed, then you will see different results.</p>
+
+<h3 id="embed-ain-t-so-simple">Embed ain&rsquo;t so simple</h3>
+
+<p>One of the purposes of the <code>&lt;embed&gt;</code> tag is to allow third party plug-ins such as Flash or Quicktime to be embedded into a page, but as these have fallen out of favour over the years it appears the general advice is <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/embed">&ldquo;don&rsquo;t use it&rdquo;</a></p>
+
+<blockquote>
+<p><em>Keep in mind that most modern browsers have deprecated and removed support for browser plug-ins, so relying upon <embed> is generally not wise if you want your site to be operable on the average user&rsquo;s browser</em><sup class="footnote-ref" id="fnref:2"><a href="#fn:2">2</a></sup></p>
+</blockquote>
+
+<p>However, clearly the browsers seem to behave differently with the <code>type</code> attribute, and how they handle the response. While Safari seems to be staunchly against doing anything without a plugin installed for the <code>type</code>, Firefox and Chrome are a bit more of a mixed bag.</p>
+
+<h3 id="results">Results</h3>
+
+<p>The <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1473833">firefox bug</a> engendered some really interesting discussion, and their engineers <a href="https://phabricator.services.mozilla.com/D2542">implemented a patch</a> to change this behaviour in Firefox, <em>possibly</em> scheduled for version 63! They also <a href="https://github.com/whatwg/html/issues/3876">raised a spec bug on the HTML standards github</a> around this to get some clarity on this issue. I thought that was really cool!</p>
+
+<p>On the Chrome side of things, I filed a similar report<sup class="footnote-ref" id="fnref:3"><a href="#fn:3">3</a></sup>, but they closed it, saying it was a larger problem with the web in general. Very polite and curt response, but fair enough.</p>
+
+<blockquote>
+<p><em>You are correct that there can be a vector for crypto-miners, or possibly deceptive messaging to a user, but that is a larger problem on the web. When content is loaded there are signals as to what type of content it is, but we don&rsquo;t constrain it based the the extension of the resource file (i.e. &lsquo;.webm&rsquo;).</em></p>
+</blockquote>
+
+<p>As for the financial website? I eventually got a contact in their information security department and filed the issue with them. They&rsquo;ve since fixed it by removing the hardcoded dependency on that domain and are hosting the SWF file themselves.</p>
+
+<h3 id="is-it-a-security-bug">Is it a security bug?</h3>
+
+<p>I started out this journey just bumbling around on the web, and ended up encountering some behaviour that didn&rsquo;t seem right.</p>
+
+<p>But after thinking about it, I&rsquo;m in two minds.</p>
+
+<p>On the one hand, the <code>&lt;embed&gt;</code> tag is doing its job, embedding stuff. The question is, if you specify the <code>type</code> attribute with a valid MIME type, <a href="https://github.com/whatwg/html/issues/3876">what should the browser do</a>, and what should the fallback case be if the requested plugin cannot be handled or is missing?</p>
+
+<p>You could argue that this is a non-issue that just stems from questionable coding practises, especially around hardcoding dependencies to third party sites that you cannot trust.<sup class="footnote-ref" id="fnref:4"><a href="#fn:4">4</a></sup> However there is a bit of me that wonders if there are dark corners of websites out there that are embedding video<sup class="footnote-ref" id="fnref:5"><a href="#fn:5">5</a></sup> or flash content from domains that have since changed owners, or started returning dodgy responses.</p>
+
+<p>Clearly the domain squatter is setting <code>top.location.href</code> for a reason, which makes me think they already know about this behaviour and are using it as a way to drive the browser into redirecting to their content. Other nefarious actors could use this &lsquo;feature&rsquo; to silently embed cryptominers, or craft redirects to phishing websites, but it&rsquo;s quite an involved process that relies on the &lsquo;victims&rsquo; website embedding content from elsewhere, so probably not a high risk.</p>
+
+<p>It was an interesting ride anyway.</p>
+<div class="footnotes">
+
+<hr />
+
+<ol>
+<li id="fn:1">I didn&rsquo;t have time to test Microsoft Edge, or Opera. It&rsquo;s safe to assume Internet Explorer has weird behaviour though.
+ <a class="footnote-return" href="#fnref:1"><sup>[return]</sup></a></li>
+<li id="fn:2">Quoted from <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/embed">MDN web docs - <embed>: The Embed External Content element</a>
+ <a class="footnote-return" href="#fnref:2"><sup>[return]</sup></a></li>
+<li id="fn:3">I would link to it, but I filed it in the security space for Chrome bugs so I don&rsquo;t think people will be able to see it
+ <a class="footnote-return" href="#fnref:3"><sup>[return]</sup></a></li>
+<li id="fn:4"><a href="https://www.troyhunt.com/the-javascript-supply-chain-paradox-sri-csp-and-trust-in-third-party-libraries">The JavaScript Supply Chain Paradox: SRI, CSP and Trust in Third Party Libraries</a> -  troyhunt.com
+ <a class="footnote-return" href="#fnref:4"><sup>[return]</sup></a></li>
+<li id="fn:5">Given the general advice for audio/video is <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Supported_media_formats">to use the HTML5 media elements</a>, this is probably a legacy issue.
+ <a class="footnote-return" href="#fnref:5"><sup>[return]</sup></a></li>
+</ol>
+</div>
+
+</article>
+</main>
+</div>
+
+
+
+</body>
+</html>

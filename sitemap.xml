@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://djhworld.github.io/post/2018/08/12/i-thought-i-found-a-browser-security-bug/</loc>
+    <lastmod>2018-08-12T09:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://djhworld.github.io/post/2018/03/29/using-hyperloglog-in-production-a-retrospective/</loc>
     <lastmod>2018-03-29T12:00:00+00:00</lastmod>
   </url>
@@ -18,13 +23,34 @@
   </url>
   
   <url>
+    <loc>https://djhworld.github.io/demos/embed-issue/demo/</loc>
+  </url>
+  
+  <url>
+    <loc>https://djhworld.github.io/demos/embed-issue/supposed-to-be-audio/</loc>
+  </url>
+  
+  <url>
+    <loc>https://djhworld.github.io/demos/embed-issue/supposed-to-be-flash/</loc>
+  </url>
+  
+  <url>
+    <loc>https://djhworld.github.io/demos/embed-issue/supposed-to-be-video/</loc>
+  </url>
+  
+  <url>
     <loc>https://djhworld.github.io/categories/</loc>
     <priority>0</priority>
   </url>
   
   <url>
+    <loc>https://djhworld.github.io/demos/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://djhworld.github.io/post/</loc>
-    <lastmod>2018-03-29T12:00:00+00:00</lastmod>
+    <lastmod>2018-08-12T09:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -35,7 +61,7 @@
   
   <url>
     <loc>https://djhworld.github.io/</loc>
-    <lastmod>2018-03-29T12:00:00+00:00</lastmod>
+    <lastmod>2018-08-12T09:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   

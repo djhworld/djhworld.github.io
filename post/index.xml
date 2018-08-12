@@ -6,10 +6,21 @@
     <description>Recent content in Posts on djhworld</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-gb</language>
-    <lastBuildDate>Thu, 29 Mar 2018 12:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 12 Aug 2018 09:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://djhworld.github.io/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>I thought I found a browser security bug</title>
+      <link>https://djhworld.github.io/post/2018/08/12/i-thought-i-found-a-browser-security-bug/</link>
+      <pubDate>Sun, 12 Aug 2018 09:00:00 +0000</pubDate>
+      
+      <guid>https://djhworld.github.io/post/2018/08/12/i-thought-i-found-a-browser-security-bug/</guid>
+      <description>A few weeks ago I thought I&amp;rsquo;d stumbled across something really bad when just casually browsing the web. It all started on a financial information website, upon on clicking a link, the page partially loaded some of its content, then, without warning, redirected the browser to a completely different domain with some weird spam/search engine content on it, from a known domain squatter.
+Strange&amp;hellip;
+After refreshing a few times, it was still doing it.</description>
+    </item>
     
     <item>
       <title>Using HyperLogLog in production, a retrospective</title>
