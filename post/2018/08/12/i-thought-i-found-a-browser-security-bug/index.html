@@ -136,7 +136,7 @@
 
 <p>The <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1473833">firefox bug</a> engendered some really interesting discussion, and their engineers <a href="https://phabricator.services.mozilla.com/D2542">implemented a patch</a> to change this behaviour in Firefox, <em>possibly</em> scheduled for version 63! They also <a href="https://github.com/whatwg/html/issues/3876">raised a spec bug on the HTML standards github</a> around this to get some clarity on this issue. I thought that was really cool!</p>
 
-<p>On the Chrome side of things, I filed a similar report<sup class="footnote-ref" id="fnref:3"><a href="#fn:3">3</a></sup>, but they closed it, saying it was a larger problem with the web in general. Very polite and curt response, but fair enough.</p>
+<p>On the Chrome side of things, I <a href="https://bugs.chromium.org/p/chromium/issues/detail?id=860782#c2">filed a similar report</a>, but they closed it, saying it was a larger problem with the web in general. Very polite and curt response, but fair enough.</p>
 
 <blockquote>
 <p><em>You are correct that there can be a vector for crypto-miners, or possibly deceptive messaging to a user, but that is a larger problem on the web. When content is loaded there are signals as to what type of content it is, but we don&rsquo;t constrain it based the the extension of the resource file (i.e. &lsquo;.webm&rsquo;).</em></p>
@@ -152,11 +152,13 @@
 
 <p>On the one hand, the <code>&lt;embed&gt;</code> tag is doing its job, embedding stuff. The question is, if you specify the <code>type</code> attribute with a valid MIME type, <a href="https://github.com/whatwg/html/issues/3876">what should the browser do</a>, and what should the fallback case be if the requested plugin cannot be handled or is missing?</p>
 
-<p>You could argue that this is a non-issue that just stems from questionable coding practises, especially around hardcoding dependencies to third party sites that you cannot trust.<sup class="footnote-ref" id="fnref:4"><a href="#fn:4">4</a></sup> However there is a bit of me that wonders if there are dark corners of websites out there that are embedding video<sup class="footnote-ref" id="fnref:5"><a href="#fn:5">5</a></sup> or flash content from domains that have since changed owners, or started returning dodgy responses.</p>
+<p>You could argue that this is a non-issue that just stems from questionable coding practises, especially around hardcoding dependencies to third party sites that you cannot trust.<sup class="footnote-ref" id="fnref:3"><a href="#fn:3">3</a></sup> However there is a bit of me that wonders if there are dark corners of websites out there that are embedding video<sup class="footnote-ref" id="fnref:4"><a href="#fn:4">4</a></sup> or flash content from domains that have since changed owners, or started returning dodgy responses.</p>
 
 <p>Clearly the domain squatter is setting <code>top.location.href</code> for a reason, which makes me think they already know about this behaviour and are using it as a way to drive the browser into redirecting to their content. Other nefarious actors could use this &lsquo;feature&rsquo; to silently embed cryptominers, or craft redirects to phishing websites, but it&rsquo;s quite an involved process that relies on the &lsquo;victims&rsquo; website embedding content from elsewhere, so probably not a high risk.</p>
 
 <p>It was an interesting ride anyway.</p>
+
+<p><small class="edits"><strong>UPDATE - 2018-08-13:</strong> <em>The Chromium team kindly relaxed the viewing permissions on the <a href="https://bugs.chromium.org/p/chromium/issues/detail?id=860782#c2">bug I had filed</a> (it was in their security space which is understandably restricted), so I&rsquo;ve updated the post to include the link</em></small></p>
 <div class="footnotes">
 
 <hr />
@@ -166,12 +168,10 @@
  <a class="footnote-return" href="#fnref:1"><sup>[return]</sup></a></li>
 <li id="fn:2">Quoted from <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/embed">MDN web docs - <embed>: The Embed External Content element</a>
  <a class="footnote-return" href="#fnref:2"><sup>[return]</sup></a></li>
-<li id="fn:3">I would link to it, but I filed it in the security space for Chrome bugs so I don&rsquo;t think people will be able to see it
+<li id="fn:3"><a href="https://www.troyhunt.com/the-javascript-supply-chain-paradox-sri-csp-and-trust-in-third-party-libraries">The JavaScript Supply Chain Paradox: SRI, CSP and Trust in Third Party Libraries</a> -  troyhunt.com
  <a class="footnote-return" href="#fnref:3"><sup>[return]</sup></a></li>
-<li id="fn:4"><a href="https://www.troyhunt.com/the-javascript-supply-chain-paradox-sri-csp-and-trust-in-third-party-libraries">The JavaScript Supply Chain Paradox: SRI, CSP and Trust in Third Party Libraries</a> -  troyhunt.com
+<li id="fn:4">Given the general advice for audio/video is <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Supported_media_formats">to use the HTML5 media elements</a>, this is probably a legacy issue.
  <a class="footnote-return" href="#fnref:4"><sup>[return]</sup></a></li>
-<li id="fn:5">Given the general advice for audio/video is <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Supported_media_formats">to use the HTML5 media elements</a>, this is probably a legacy issue.
- <a class="footnote-return" href="#fnref:5"><sup>[return]</sup></a></li>
 </ol>
 </div>
 
