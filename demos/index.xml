@@ -46,5 +46,14 @@
       <description>    var i = 0; setInterval(function() { i = i + 1; document.getElementById(&#34;text&#34;).innerHTML=&#34;&#34; + i + &#34; no video content here, embedding the page instead&#34;; }, 1000);   </description>
     </item>
     
+    <item>
+      <title></title>
+      <link>https://djhworld.github.io/demos/gomeboycolor-demo/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://djhworld.github.io/demos/gomeboycolor-demo/</guid>
+      <description>#screen { width:300px; margin-left:auto; margin-right:auto; display:block; } .text-center { text-align:center; } #screen-div { background-color: #34383b; border: 1px #000 solid; border-radius: 12px; border-bottom-right-radius: 50px; border-bottom-left-radius: 50px; margin-left: auto; margin-right: auto; display: block; padding: 0px; width: 300px; height:175px; } h1#title { font-size:13px; color: #ebf2f5; font-style: italic; font-weight: bold; margin:0px; } h1#title small { font-family: &#34;Comic Sans MS&#34;, sans-serif; font-style: normal; font-weight: 900 !important; font-size:13px; } h1#title small span.c { color: #7d2259; } h1#title small span.</description>
+    </item>
+    
   </channel>
 </rss>

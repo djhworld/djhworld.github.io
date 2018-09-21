@@ -1,0 +1,404 @@
+<!doctype html> 
+<html lang="en-gb"> 
+<head>
+  <meta charset="utf-8">
+
+   
+  <title>I ported my Gameboy Color emulator to WebAssembly - djhworld</title>
+  
+
+   <meta name="author" content="">
+  <meta name="description" content="thoughts">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico">
+  
+  
+  <link rel="stylesheet" href="/style.css" />
+  
+   
+
+</head>
+
+<body class="">
+
+  
+
+  <div class="wrap">
+    <header class="mb">
+      <h1 class="h2 m-0"><a href="/" title="daniel harper">djhworld</a></h1>
+    <div id="navbar">
+      <a href="/">home</a>
+      <a href="/about">about</a>
+      <a href="/post/index.xml" type="application/rss+xml" target="_blank" title="never let rss die">rss</a>
+    </div>
+
+
+      <p class="site-description">thoughts</p>
+
+      <hr/>
+    </header>
+
+
+<main>
+<article class="post">
+  
+  <h1><a href="https://djhworld.github.io/post/2018/09/21/i-ported-my-gameboy-color-emulator-to-webassembly/" title="I ported my Gameboy Color emulator to WebAssembly">I ported my Gameboy Color emulator to WebAssembly</a></h1>
+  <p class="small gray">
+    <time datetime="2018-09-21">Friday, September 21, 2018</time>
+</p>
+  
+  
+
+<figure>
+<img src="/img/gomeboy/tetris.gif" title="Notice how I've obnoxiously coloured each letter of COLOR" width="400px" style="margin-left:auto; margin-right:auto; display:block" />
+<br/>
+</figure>
+
+<p>Around five years ago I wrote a <a href="http://djhworld.github.io/gomeboycolor/">gameboy color emulator</a> in Go. It was a very frustrating, but rewarding experience that I&rsquo;ve been dining out on in job interviews ever since.</p>
+
+<p>However, as the passage of time progressed, it landed on the pile of mostly-done-but-not-finished projects and left largely abandoned. One might generously say, on <em>hiatus</em>. Well, until very recently that is.</p>
+
+<figure>
+<img src="/img/gomeboy/gomeboycolor-commits.png" title="That 5 year void was filled with other stuff. I went on a cruise ship once." style="" />
+<figcaption>
+That 5 year gap
+</figcaption>
+</figure>
+
+<p>You see, a few weeks ago <a href="https://blog.golang.org/go1.11">Go 1.11 came out</a>, and with it came the promise of <em>experimental</em> support for compiling Go code to <a href="https://webassembly.org/">WebAssembly</a>. There&rsquo;s nothing one likes more than experimental APIs so this got me thinking, what could I do to test out this new WASM target?</p>
+
+<p><em>If only I had a decently sized project written in Go that wasn&rsquo;t some trivial TODO list manager</em> 🤔</p>
+
+<h2 id="hello-old-friend">Hello, old friend</h2>
+
+<p>Going back to old code is like looking at old photos of yourself. So young, so naive, questionable style. Much to my surprise though, compiling the project using the new WASM target <strong>actually worked.</strong></p>
+
+<p>As in, within 5 minutes of commenting out code related to GLFW/GL calls, there was something running in the browser. Obviously, not rendering anything to the page, but there was stuff printing to the developer tools console at least to indicate the emulator was running.</p>
+
+<p>This absolutely blew my mind, here was some old code, written for a non browser environment in a language not supported by browsers, running in the browser. It was exciting enough for me to blast out furious torrent of commits.</p>
+
+<p>The end result being <a href="/gomeboycolor/">gomeboycolor WASM edition</a> (warning: ~5mb or so download), go on, try it out, load some ROMs on it that you&rsquo;ve illegally downloaded<sup class="footnote-ref" id="fnref:1"><a href="#fn:1">1</a></sup>.</p>
+
+<p>Alternatively try out the demo below, click &ldquo;start&rdquo; to run the emulator and &ldquo;stop&rdquo; to stop it. The preinstalled ROM is a <a href="http://gbdev.gg8.se/wiki/articles/Test_ROMs">test suite</a> used to test the CPU:</p>
+
+<p><embed width="100%" height="250px" class="center-img" src="/demos/gomeboycolor-demo/"/></p>
+
+<h3 id="reinventing-the-wheel">Reinventing the wheel</h3>
+
+<p>Running emulators in the <a href="https://github.com/fcambus/jsemu#nintendo">browser isn&rsquo;t new</a> and I&rsquo;d imagine some people have had some fun porting other emulators using <a href="https://github.com/kripken/emscripten">emscripten</a>. In fact someone is doing a <a href="https://github.com/torch2424/wasmBoy">WASM gameboy emulator in AssemblyScript</a>, so I&rsquo;m definitely not the first.</p>
+
+<p>There are some caveats and performance issues of this WASM implementation that I will explain below if you&rsquo;re still interested in my long ramblings, but it mostly works.</p>
+
+<p>Except in Google Chrome, that is. Oh boy there&rsquo;s trouble there, we&rsquo;ll get onto that. Firefox and Safari seem to perform reasonably well though. I&rsquo;ve not tried Edge.</p>
+
+<figure>
+<a href="/img/gomeboy/zelda.png"><img src="/img/gomeboy/zelda1.png" title="Zelda Links Awakening" /></a>
+<a href="/img/gomeboy/mariotennis.png"><img src="/img/gomeboy/mariotennis1.png" title="Mario Tennis" /></a>
+<a href="/img/gomeboy/tetrisdx.png"><img src="/img/gomeboy/tetrisdx1.png" title="Tetris DX" /></a>
+<a href="/img/gomeboy/pokemon.png"><img src="/img/gomeboy/pokemon1.png" title="I played this in school back in the year 2000" /></a>
+<a href="/img/gomeboy/mario_bros.png"><img class="" src="/img/gomeboy/mario_bros1.png" title="" /></a>
+<a href="/img/gomeboy/rtype.png"><img class="" src="/img/gomeboy/rtype1.png" title="" /></a>
+<a href="/img/gomeboy/wario.png"><img class="" src="/img/gomeboy/wario1.png" title="" /></a>
+<a href="/img/gomeboy/lionking.png"><img class="" src="/img/gomeboy/lionking1.png" title="" /></a>
+<figcaption>
+<br/>
+Admit it, you're just here for the screenshots
+</figcaption>
+</figure>
+
+<h2 id="draw-an-owl-2">Draw an owl <sup class="footnote-ref" id="fnref:2"><a href="#fn:2">2</a></sup></h2>
+
+<p>No one ever talks about the journey, just the destination. But this time I&rsquo;ll indulge myself a little and document a few challenges I found along the way. Maybe we can all learn something. Learn something about porting gameboy color emulators to WASM at least.</p>
+
+<blockquote>
+<p><em>By the way, as a side note, if you want to know what programming your own Gameboy emulator is like, <a href="https://">@Tomek1024</a> paints <a href="https://blog.rekawek.eu/2017/02/09/coffee-gb/">a pretty accurate portrait.</a>, I&rsquo;m impressed he managed to do it in less than two months. Embarrassingly it took me about six. Okay maybe seven. It was 2013.</em></p>
+</blockquote>
+
+<p>Back to WebAssembly&hellip;</p>
+
+<p>The first real issue was, while my previous self had endeavored to make the code very modular, with individual packages for each hardware component (e.g. CPU, GPU, memory management unit etc) there were some bits of the codebase that made a lot of assumptions about its environment. These issues only presented themselves at runtime with the WASM virtual machine throwing up.</p>
+
+<p>The problems were namely anything that was doing stuff around the <a href="https://golang.org/pkg/os/"><code>os</code></a> package, so like opening files, querying filesystems and user info. My emulator expected to read ROM files, and save battery state<sup class="footnote-ref" id="fnref:3"><a href="#fn:3">3</a></sup> to disk. The browser WASM environment is in a sandbox and won&rsquo;t let you play outside it.</p>
+
+<p>So the first round of refactoring was to move the <a href="https://github.com/djhworld/gomeboycolor/blob/master/cartridge/cartridge.go#L58">ROM-loading</a> and <a href="https://github.com/djhworld/gomeboycolor/blob/master/saves/store.go">save-saving layers</a> to the outer edges and use interfaces like <code>io.Reader</code> further in. As a professional Java developer I should have known better, even 5 years ago, but still.</p>
+
+<p>So that&rsquo;s lesson 1. Limit the scope of your environment to the bits of code that need to know. Abstract elsewhere</p>
+
+<h3 id="graphics">Graphics</h3>
+
+<p>That was the easy bit. But no one likes playing a gameboy with no screen, so this is where the hacks started to creep in.</p>
+
+<p>Every so often the emulator emits a 2D array (<em>frame</em>) of pixels. The real hardware does this at a rate of 59.7 frames per second.<sup class="footnote-ref" id="fnref:4"><a href="#fn:4">4</a></sup></p>
+
+<p>Drawing an array of pixels seemed like a prime candidate for the <a href="https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API">HTML5 canvas API</a>, constructing an <a href="https://developer.mozilla.org/en-US/docs/Web/API/ImageData"><code>ImageData</code></a> object and repainting on every frame update. When trying this though, using the go <a href="https://tip.golang.org/pkg/syscall/js/"><code>syscall/js</code></a> package, the performance was abysmal, eventually causing the browser tab to freeze. It appeared as though the having the emulator and UI on the same thread was causing a lot of contention.</p>
+
+<p>Sounded like a job for threading to me, but WebAssembly doesn&rsquo;t support threads (<a href="https://github.com/WebAssembly/threads">yet</a>) so needed to figure out something else.</p>
+
+<h3 id="have-faith-in-the-workers">Have faith in the workers</h3>
+
+<p>Which led me towards <a href="https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API/Using_web_workers">Web Workers</a>.</p>
+
+<blockquote>
+<p><em>Web Workers is a simple means for web content to run scripts in background threads. The worker thread can perform tasks without interfering with the user interface.</em></p>
+</blockquote>
+
+<p>Perfect!</p>
+
+<p>Initialising the emulator <a href="https://github.com/djhworld/gomeboycolor-wasm/blob/master/static/gomeboycolor/js/worker.js#L21">inside a worker</a> and then using the <code>postMessage</code> API to post the frames to the user interface on every tick seemed a more promising approach.</p>
+
+<p>There were still performance issues though, as I was sending an array of bytes out of WASM land into JS land on every frame call. While the <code>postMessage</code> API supports sending an extra parameter to &lsquo;transfer&rsquo; <a href="https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API/Using_web_workers#Passing_data_by_transferring_ownership_(transferable_objects)">ownership of large data sets</a>&hellip;</p>
+
+<blockquote>
+<p><em>Transferable objects are transferred from one context to another with a zero-copy operation, which results in a vast performance improvement when sending large data sets.</em></p>
+</blockquote>
+
+<p>&hellip;it seemed tricky to do in Go code because the transferable parameter needs to be an <code>ArrayBuffer</code> which doesn&rsquo;t seem possible with the API that <code>syscall/js</code> provides.</p>
+
+<p>Instead, to workaround this, the first hack was born. Within my Go code, the array of pixels gets converted to a base64 string, which is sent to a global javascript function that issues the <code>postMessage</code> call. This yielded a much smoother experience in the user interface!</p>
+
+<figure>
+<img src="/img/gomeboy/graphics.png" class="center-img" title="" />
+<figcaption>
+<br/>
+The hack in diagram form.
+</figcaption>
+</figure>
+
+<p>Go code:</p>
+
+<figure>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#007020;font-weight:bold">func</span> (s <span style="color:#666">*</span>html5CanvasDisplay) DrawFrame(screenData <span style="color:#666">*</span>types.Screen) {
+    <span style="color:#007020;font-weight:bold">for</span> y <span style="color:#666">:=</span> <span style="color:#40a070">0</span>; y &lt; <span style="color:#40a070">144</span>; y<span style="color:#666">++</span> {
+        <span style="color:#007020;font-weight:bold">for</span> x <span style="color:#666">:=</span> <span style="color:#40a070">0</span>; x &lt; <span style="color:#40a070">160</span>; x<span style="color:#666">++</span> {
+            <span style="color:#007020;font-weight:bold">var</span> pixel types.RGB = screenData[y][x]
+            s.imageData[i] = pixel.Red
+            s.imageData[i<span style="color:#666">+</span><span style="color:#40a070">1</span>] = pixel.Green
+            s.imageData[i<span style="color:#666">+</span><span style="color:#40a070">2</span>] = pixel.Blue
+            s.imageData[i<span style="color:#666">+</span><span style="color:#40a070">3</span>] = <span style="color:#40a070">255</span>
+            i <span style="color:#666">+=</span> <span style="color:#40a070">4</span>
+        }
+   }
+
+   <span style="color:#60a0b0;font-style:italic">// hack
+</span><span style="color:#60a0b0;font-style:italic"></span>   screenData <span style="color:#666">:=</span> base64.StdEncoding.EncodeToString(s.imageData)
+
+   <span style="color:#60a0b0;font-style:italic">// call global function
+</span><span style="color:#60a0b0;font-style:italic"></span>   js.Global().Call(<span style="color:#4070a0">&#34;sendScreenUpdate&#34;</span>, screenData)
+}</code></pre></div>
+<figcaption>Note the image data is a flattened array that represents the pixel grid</figcaption>
+</figure>
+
+<p>Javascript in the worker:</p>
+
+<figure>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#007020;font-weight:bold">function</span> sendScreenUpdate(bs64) {
+    <span style="color:#60a0b0;font-style:italic">// decode base 64 back to byte array
+</span><span style="color:#60a0b0;font-style:italic"></span>    <span style="color:#007020;font-weight:bold">var</span> bytes <span style="color:#666">=</span> base64js.toByteArray(bs64)
+    <span style="color:#007020;font-weight:bold">var</span> buf <span style="color:#666">=</span>  <span style="color:#007020;font-weight:bold">new</span> Uint8ClampedArray(bytes).buffer;
+
+    <span style="color:#60a0b0;font-style:italic">// uses transferable on post message
+</span><span style="color:#60a0b0;font-style:italic"></span>    postMessage([<span style="color:#4070a0">&#34;screen-update&#34;</span>, buf], [buf]);
+}
+</code></pre></div>
+<figcaption>Decode the base64 and then send the data to the user interface</figcaption>
+</figure>
+
+<p>The update canvas function in the user interface:</p>
+
+<figure>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript">worker.onmessage <span style="color:#666">=</span> <span style="color:#007020;font-weight:bold">function</span>(e) {
+    <span style="color:#007020;font-weight:bold">if</span>(e.data[<span style="color:#40a070">0</span>] <span style="color:#666">==</span> <span style="color:#4070a0">&#34;screen-update&#34;</span>) {
+       updateCanvas(e.data[<span style="color:#40a070">1</span>]);
+    }
+}
+<span style="color:#007020;font-weight:bold">function</span> updateCanvas(screenData) {
+    <span style="color:#007020;font-weight:bold">var</span> decodedData <span style="color:#666">=</span> <span style="color:#007020;font-weight:bold">new</span> Uint8ClampedArray(screenData);
+    <span style="color:#007020;font-weight:bold">var</span> imageData <span style="color:#666">=</span> <span style="color:#007020;font-weight:bold">new</span> ImageData(decodedData, <span style="color:#40a070">160</span>, <span style="color:#40a070">144</span>);
+    canvasContext.putImageData(imageData, canvas.width <span style="">/ 4, 4);</span>
+}
+</code></pre></div>
+<figcaption>Repaint the canvas context with the new frame</figcaption>
+</figure>
+
+<h3 id="the-curse-of-the-workers">The curse of the workers</h3>
+
+<figure>
+<img src="/img/gomeboy/zelda-storm.png" title="I like the starting sequence in Zelda" width="200px" style="margin-left:auto; margin-right:auto; display:block" />
+<br/>
+<figcaption>Moody</figcaption>
+</figure>
+
+<p>Unfortunately the web worker approach presented a whole new set of challenges. It was beginning to feel I was making a rod for my own back.</p>
+
+<p>Gamers usually like to play games by interacting with them via key or button presses. As Web Workers are <strong>isolated</strong>, they don&rsquo;t have access to all the good stuff you get in the browser like setting up handlers for keyboard events and so on. The only way you can communicate with them is by sending them letters via the <code>postMessage</code> call and hoping they read them.</p>
+
+<p>So the next challenge was to start posting the keyboard updates back to the emulator.</p>
+
+<figure>
+<img src="/img/gomeboy/keyboard.png" class="center-img" title="" />
+<figcaption>
+<br/>
+The Circle 
+</figcaption>
+</figure>
+
+<p>Go code:</p>
+
+<figure>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#007020;font-weight:bold">var</span> messageCB js.Callback
+messageCB = js.NewCallback(<span style="color:#007020;font-weight:bold">func</span>(args []js.Value) {
+    input <span style="color:#666">:=</span> args[<span style="color:#40a070">0</span>].Get(<span style="color:#4070a0">&#34;data&#34;</span>)
+    <span style="color:#007020;font-weight:bold">switch</span> input.Index(<span style="color:#40a070">0</span>).String() {
+        <span style="color:#007020;font-weight:bold">case</span> <span style="color:#4070a0">&#34;keyup&#34;</span>:
+            <span style="color:#60a0b0;font-style:italic">// tell emulator what key has been released 
+</span><span style="color:#60a0b0;font-style:italic"></span>            i.KeyHandler.KeyUp(input.Index(<span style="color:#40a070">1</span>).Int())
+        <span style="color:#007020;font-weight:bold">case</span> <span style="color:#4070a0">&#34;keydown&#34;</span>:
+            <span style="color:#60a0b0;font-style:italic">// tell emulator what key has been pressed
+</span><span style="color:#60a0b0;font-style:italic"></span>            i.KeyHandler.KeyDown(input.Index(<span style="color:#40a070">1</span>).Int())
+    }
+})
+
+<span style="color:#60a0b0;font-style:italic">// receive messages from outside
+</span><span style="color:#60a0b0;font-style:italic"></span>self <span style="color:#666">:=</span> js.Global().Get(<span style="color:#4070a0">&#34;self&#34;</span>)
+self.Call(<span style="color:#4070a0">&#34;addEventListener&#34;</span>, <span style="color:#4070a0">&#34;message&#34;</span>, messageCB, <span style="color:#007020;font-weight:bold">false</span>)</code></pre></div>
+<figcaption>Handling the messages received in the worker</figcaption>
+</figure>
+
+<p>Javascript code in the user interface:</p>
+
+<figure>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#007020;font-weight:bold">let</span> keydownhandler <span style="color:#666">=</span> <span style="color:#007020;font-weight:bold">function</span> (e) {
+    worker.postMessage([<span style="color:#4070a0">&#34;keydown&#34;</span>, e.which])
+}
+<span style="color:#007020;font-weight:bold">let</span> keyuphandler <span style="color:#666">=</span> <span style="color:#007020;font-weight:bold">function</span> (e) {
+    worker.postMessage([<span style="color:#4070a0">&#34;keyup&#34;</span>, e.which])
+}
+<span style="color:#007020">document</span>.addEventListener(<span style="color:#4070a0">&#34;keydown&#34;</span>, keydownhandler);
+<span style="color:#007020">document</span>.addEventListener(<span style="color:#4070a0">&#34;keyup&#34;</span>, keyuphandler);
+</code></pre></div>
+<figcaption>Sending keyboard change events to the worker</figcaption>
+</figure>
+
+<p>This back and forth <code>postMessage</code> approach was working and soon ballooned into a some sort of faux protocol that</p>
+
+<ul>
+<li>Allows users to load ROMs into the emulator by passing the byte array to the worker</li>
+<li>Allows users to configure the emulator settings by passing configuration data to the worker</li>
+<li>Allows the emulator to send battery save data to the UI thread, which in turn puts it in LocalStorage
+
+<ul>
+<li>On emulator start, the save data is loaded from LocalStorage and sent to the emulator</li>
+</ul></li>
+<li>Allows the emulator to send a diagnostic frame rate counter back to the user interface</li>
+</ul>
+
+<p>I&rsquo;ll be honest, it was a royal pain in the backside to write and is probably very fragile and prone to breakages. There would be more arrows on this diagram to express the <span title="R.I.P. Barry" style="cursor:pointer"><u>to-me, to-you</u></span> handshaking but frankly I&rsquo;ve had enough of diagrams.</p>
+
+<figure>
+<img src="/img/gomeboy/final.png" class="center-img" title="" />
+<figcaption>
+<br/>
+Imagine more arrows
+</figcaption>
+</figure>
+
+<h3 id="performance">Performance</h3>
+
+<p>That was the implementation side of things, there was a lot of deck chair rearranging elsewhere, but most of the effort was in getting stuff in and out of the emulator.</p>
+
+<p>Performance was still a problem though, the framerate was choppy and the keyboard input mechanism was unreliable, with some presses being skipped, making the games feel spongy and not fun to play.</p>
+
+<p>To try and isolate whether the problem was due to WebAssembly performance, I introduced a &ldquo;headless&rdquo; mode that stops sending the screen data on every draw frame call. This was to try and remove the whole web worker &rarr; UI dance from the equation and just see how well the emulator can run.</p>
+
+<p>The following tests were performed using these browsers on OSX 10.13.6:</p>
+
+<ul>
+<li>Chrome <code>69.0.3497.100</code></li>
+<li>Firefox <code>63.0b4</code></li>
+<li>Safari <code>12.0 (13606.2.11)</code></li>
+</ul>
+
+<p>Using the Game <em>Tetris DX</em>, running for 60 seconds, these were the results:</p>
+
+<figure>
+<img src="/img/gomeboy/tetrisdx-headless-graph.png" class="center-img" title="" />
+<figcaption>
+<br/>
+</figcaption>
+</figure>
+
+<p>As you can see, Safari runs a pretty smooth shop. Firefox was more erratic but the emulator kept on pausing every so often so that would account for the drops. Chrome, while a fairly straight line, didn&rsquo;t even make it past 20fps.</p>
+
+<p>So WASM performance, at least on Firefox and Safari seemed pretty reasonable.</p>
+
+<p>Repeating the same test with headless mode turned off, there was a definite 10 frame or so performance penalty, probably owing to the base64 conversions and passing messages bit. Oddly Firefox didn&rsquo;t seem to pause at all during this test.</p>
+
+<figure>
+<img src="/img/gomeboy/tetrisdx-graph.png" class="center-img" title="" />
+<figcaption>
+<br/>
+</figcaption>
+</figure>
+
+<p>The problem with the unreliable keypresses was still there though, sometimes the emulator just wasn&rsquo;t responding at all to anything. My hunch at the time was, as there is no threading in WASM yet, there&rsquo;s probably a lot of spinning plates going on around handling <code>postMessage</code> callbacks. I don&rsquo;t know how the browser internals work on this one, but I&rsquo;d imagine they have timers and stuff going on that poll for updates.</p>
+
+<p>So the next logical step was to see about slowing the emulator down by locking the frame rate to a maximum fixed value. The reasoning being, a slower emulator might give the browser more headroom to do its thing. I chose a 30fps lock for this test</p>
+
+<figure>
+<img src="/img/gomeboy/tetrisdx-lock-30fps-graph.png" class="center-img" title="" />
+<figcaption>
+<br/>
+</figcaption>
+</figure>
+
+<p>A marked improvement in stability! Plus, my hunch was right, the keyboard was <em>much</em> much more reliable. Chrome continued to be in the doldrums though and still wasn&rsquo;t acknowledging input. Redoing the test with a frame rate lock of 25fps just about made the keyboard work for Chrome, but it made for pretty choppy visuals.</p>
+
+<h3 id="conclusion">Conclusion</h3>
+
+<p>Good god, that was a long post. Sorry.</p>
+
+<p>This little experiment made for a fun ride. I somewhat suspect the use of web workers in this manner is definitely not what that feature was designed for. It&rsquo;s doubtful that many people would build video games in the browser in this way. A better approach might be to use WebGL, but my mental, physical and emotional strength is not there right now to open that can of worms.</p>
+
+<p>The coolest thing about this, and maybe the promise of WASM in general, is I can send my emulator to my friends without having to worry about whether they have shared libraries on their system. I don&rsquo;t have to spin up a bunch of infrastructure to build versions for different operating systems<sup class="footnote-ref" id="fnref:5"><a href="#fn:5">5</a></sup>. It just works, and I&rsquo;m sure it&rsquo;s going to get better and better as WASM develops.</p>
+
+<p>On the Chrome front? I don&rsquo;t know why the performance just isn&rsquo;t there for this use case. The biggest surprise to me was actually Safari, I&rsquo;m a born and bred Firefox boy and Safari never really made it into my esteemed browser list. Good job Apple 👍</p>
+
+<p>If I were to do this again I&rsquo;d probably take a second look at <a href="https://github.com/torch2424/wasmBoy">wasmBoy</a> to see how they&rsquo;re doing it, it doesn&rsquo;t look like they are using web workers, and are using HTML5 canvas to render the output so I&rsquo;ve probably made a few missteps somewhere.</p>
+
+<p>If you want to see the code, I have a few repos. A benefit of doing refactoring work was it allowed me to decouple the &lsquo;frontend&rsquo; and &lsquo;backend&rsquo; bits of the codebase. So anyone can write a frontend that handles the screen display and keyboard controls which hooks into the backend <a href="https://github.com/djhworld/gomeboycolor">where the emulator logic is</a>. The frontends I&rsquo;ve written so far can be found here:</p>
+
+<ul>
+<li><a href="https://github.com/djhworld/gomeboycolor-wasm">gomeboycolor-wasm</a> - The WASM version described in this blog post</li>
+<li><a href="https://github.com/djhworld/gomeboycolor-glfw">gomeboycolor-glfw</a> - This is what my emulator was originally written for, and uses GLFW to render the screen to a window</li>
+<li><a href="https://github.com/djhworld/gomeboycolor/tree/master/_examples">gomeboycolor/_examples</a> - For fun I wrote an example frontend that renders in the terminal. It&rsquo;s playable to a degree!<br /></li>
+</ul>
+
+<p>Thank you for reading, happy WASM&rsquo;ing.</p>
+<div class="footnotes">
+
+<hr />
+
+<ol>
+<li id="fn:1">Nintendo have been very active recently shutting down ROM sites, and threatening legal action. So I&rsquo;m not going to risk hosting the ROMs myself.
+ <a class="footnote-return" href="#fnref:1"><sup>[return]</sup></a></li>
+<li id="fn:2"><a href="http://casnocha.com/2010/11/how-to-draw-an-owl.html">http://casnocha.com/2010/11/how-to-draw-an-owl.html</a>
+ <a class="footnote-return" href="#fnref:2"><sup>[return]</sup></a></li>
+<li id="fn:3">Save data was written to memory and kept active via a battery. Which was cool <a href="https://medium.com/@paul.klingelhuber/reviving-gameboy-games-save-feature-4151c9b7273b">until the battery ran out of power</a>&hellip;
+ <a class="footnote-return" href="#fnref:3"><sup>[return]</sup></a></li>
+<li id="fn:4"><a href="https://en.wikipedia.org/wiki/Game_Boy#Technical_specifications">https://en.wikipedia.org/wiki/Game_Boy#Technical_specifications</a>
+ <a class="footnote-return" href="#fnref:4"><sup>[return]</sup></a></li>
+<li id="fn:5">While Go supports cross compiling, it gets tricky if you have CGO bindings to shared libraries like <code>libSDL</code> or <code>libGLFW</code>
+ <a class="footnote-return" href="#fnref:5"><sup>[return]</sup></a></li>
+</ol>
+</div>
+
+</article>
+</main>
+</div>
+
+
+
+</body>
+</html>

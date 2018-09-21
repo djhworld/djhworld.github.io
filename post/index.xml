@@ -6,10 +6,21 @@
     <description>Recent content in Posts on djhworld</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-gb</language>
-    <lastBuildDate>Sun, 12 Aug 2018 09:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 21 Sep 2018 09:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://djhworld.github.io/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>I ported my Gameboy Color emulator to WebAssembly</title>
+      <link>https://djhworld.github.io/post/2018/09/21/i-ported-my-gameboy-color-emulator-to-webassembly/</link>
+      <pubDate>Fri, 21 Sep 2018 09:00:00 +0000</pubDate>
+      
+      <guid>https://djhworld.github.io/post/2018/09/21/i-ported-my-gameboy-color-emulator-to-webassembly/</guid>
+      <description>Around five years ago I wrote a gameboy color emulator in Go. It was a very frustrating, but rewarding experience that I&amp;rsquo;ve been dining out on in job interviews ever since.
+However, as the passage of time progressed, it landed on the pile of mostly-done-but-not-finished projects and left largely abandoned. One might generously say, on hiatus. Well, until very recently that is.
+  That 5 year gap   You see, a few weeks ago Go 1.</description>
+    </item>
     
     <item>
       <title>I thought I found a browser security bug</title>

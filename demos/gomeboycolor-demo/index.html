@@ -1,0 +1,151 @@
+<html>
+    <head>
+        <script type="text/javascript" src="js/base64js.min.js"></script>
+        <script type="text/javascript" src="js/utils.js"></script>
+		<style type="text/css">
+			#screen {
+				width:300px;
+				margin-left:auto;
+				margin-right:auto;
+				display:block;
+			}
+			.text-center {
+				text-align:center;
+			}
+		#screen-div {
+			background-color: #34383b;
+			border: 1px #000 solid;
+			border-radius: 12px;
+			border-bottom-right-radius: 50px;
+			border-bottom-left-radius: 50px;
+			margin-left: auto;
+			margin-right: auto;
+			display: block;
+			padding: 0px;
+			width: 300px;
+			height:175px;
+
+		}
+		h1#title {
+			font-size:13px;
+			color: #ebf2f5;
+			font-style: italic;
+			font-weight: bold;
+			margin:0px;
+		}
+
+		h1#title small {
+			font-family: "Comic Sans MS", sans-serif;
+			font-style: normal;
+			font-weight: 900 !important;
+			font-size:13px;
+		}
+
+		h1#title small span.c {
+			color: #7d2259;
+		}
+
+		h1#title small span.o1 {
+			color: #635690;
+		}
+
+		h1#title small span.l {
+			color: #7d9375;
+		}
+
+		h1#title small span.o2 {
+			color: #c8ca81;
+		}
+
+		h1#title small span.r {
+			color: #176eb1;
+		}
+
+
+        </style>
+
+    </head>
+    <body>
+
+		<div id="screen-div">
+			<canvas id="screen"></canvas>
+			<h1 id="title" class="text-center">GOME BOY <small><span class="c">C</span><span class="o1">O</span><span class="l">L</span><span
+					 class="o2">O</span><span class="r">R</span></small></h1>
+		</div>
+		<div id="buttons" class="text-center">
+        	<button onClick="start();" id="start">Start</button>
+			<button onClick="stop();" id="stop">Stop</button>
+            <br/>
+            <span id="loading"></span>
+		</div>
+
+        <script type="text/javascript">
+            var emulatorWorker = null;
+            var canvas = document.getElementById("screen");
+            var context = canvas.getContext("2d");
+
+			function start() {
+				stop();
+				console.log("Loading worker....");
+                document.getElementById("loading").innerHTML="loading...";
+                document.getElementById("start").disabled = true;
+                document.getElementById("stop").disabled = false;
+				emulatorWorker = new Worker('js/worker.js');
+				emulatorWorker.onmessage = onMessageHandler;
+			}
+
+			function onMessageHandler(e) {
+				let msg = e.data;
+				switch (msg[0]) {
+					case "launch-ok":
+                        handleLaunched();
+                        break;
+					case "stop-ok":
+						handleStop();
+						break;
+					case "screen-update":
+						updateCanvas(msg[1]);
+						break;
+					default:
+						console.log("Don't know how to handle" + JSON.stringify(msg));
+						break;
+				}
+			}
+
+			function handleLaunched() {
+                document.getElementById("loading").innerHTML="";
+            }
+
+			function handleStop() {
+				emulatorWorker.terminate();
+				emulatorWorker = null;
+				reset();
+			}
+
+			function updateCanvas(screenData) {
+				var decodedData = new Uint8ClampedArray(screenData);
+				var imageData = new ImageData(decodedData, 160, 144);
+				context.putImageData(imageData, canvas.width / 4, 4);
+			}
+
+			function reset() {
+                document.getElementById("start").disabled = false;
+                document.getElementById("stop").disabled = true;
+				context.clearRect(0, 0, canvas.width, canvas.height);
+				context.fillStyle = "#bfc5ab";
+				context.fillRect(canvas.width / 4, 4, 160, 144);
+			}
+
+			function stop() {
+				if (emulatorWorker) {
+					emulatorWorker.postMessage(["stop", {}]);
+				} else {
+					reset();
+				}
+			}
+
+			reset();
+        </script>
+    </body>
+</html>
+

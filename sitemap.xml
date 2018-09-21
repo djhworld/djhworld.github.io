@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://djhworld.github.io/post/2018/09/21/i-ported-my-gameboy-color-emulator-to-webassembly/</loc>
+    <lastmod>2018-09-21T09:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://djhworld.github.io/post/2018/08/12/i-thought-i-found-a-browser-security-bug/</loc>
     <lastmod>2018-08-12T09:00:00+00:00</lastmod>
   </url>
@@ -39,6 +44,14 @@
   </url>
   
   <url>
+    <loc>https://djhworld.github.io/demos/gomeboycolor-demo/</loc>
+  </url>
+  
+  <url>
+    <loc>https://djhworld.github.io/gomeboycolor/</loc>
+  </url>
+  
+  <url>
     <loc>https://djhworld.github.io/categories/</loc>
     <priority>0</priority>
   </url>
@@ -50,7 +63,7 @@
   
   <url>
     <loc>https://djhworld.github.io/post/</loc>
-    <lastmod>2018-08-12T09:00:00+00:00</lastmod>
+    <lastmod>2018-09-21T09:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -61,7 +74,7 @@
   
   <url>
     <loc>https://djhworld.github.io/</loc>
-    <lastmod>2018-08-12T09:00:00+00:00</lastmod>
+    <lastmod>2018-09-21T09:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
