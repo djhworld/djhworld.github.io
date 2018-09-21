@@ -56,7 +56,7 @@
 <br/>
 </figure>
 
-<p>Around five years ago I wrote a <a href="http://djhworld.github.io/gomeboycolor/">gameboy color emulator</a> in Go. It was a very frustrating, but rewarding experience that I&rsquo;ve been dining out on in job interviews ever since.</p>
+<p>Around five years ago I wrote a <a href="http://djhworld.github.io/gomeboycolor/">Gameboy Color emulator</a> in Go. It was a very frustrating, but rewarding experience that I&rsquo;ve been dining out on in job interviews ever since.</p>
 
 <p>However, as the passage of time progressed, it landed on the pile of mostly-done-but-not-finished projects and left largely abandoned. One might generously say, on <em>hiatus</em>. Well, until very recently that is.</p>
 
@@ -87,7 +87,7 @@ That 5 year gap
 
 <h3 id="reinventing-the-wheel">Reinventing the wheel</h3>
 
-<p>Running emulators in the <a href="https://github.com/fcambus/jsemu#nintendo">browser isn&rsquo;t new</a> and I&rsquo;d imagine some people have had some fun porting other emulators using <a href="https://github.com/kripken/emscripten">emscripten</a>. In fact someone is doing a <a href="https://github.com/torch2424/wasmBoy">WASM gameboy emulator in AssemblyScript</a>, so I&rsquo;m definitely not the first.</p>
+<p>Running emulators in the <a href="https://github.com/fcambus/jsemu#nintendo">browser isn&rsquo;t new</a> and I&rsquo;d imagine some people have had some fun porting other emulators using <a href="https://github.com/kripken/emscripten">emscripten</a>. In fact someone is doing a <a href="https://github.com/torch2424/wasmBoy">WASM Gameboy emulator in AssemblyScript</a>, so I&rsquo;m definitely not the first.</p>
 
 <p>There are some caveats and performance issues of this WASM implementation that I will explain below if you&rsquo;re still interested in my long ramblings, but it mostly works.</p>
 
@@ -110,7 +110,7 @@ Admit it, you're just here for the screenshots
 
 <h2 id="draw-an-owl-2">Draw an owl <sup class="footnote-ref" id="fnref:2"><a href="#fn:2">2</a></sup></h2>
 
-<p>No one ever talks about the journey, just the destination. But this time I&rsquo;ll indulge myself a little and document a few challenges I found along the way. Maybe we can all learn something. Learn something about porting gameboy color emulators to WASM at least.</p>
+<p>No one ever talks about the journey, just the destination. But this time I&rsquo;ll indulge myself a little and document a few challenges I found along the way. Maybe we can all learn something. Learn something about porting Gameboy Color emulators to WASM at least.</p>
 
 <blockquote>
 <p><em>By the way, as a side note, if you want to know what programming your own Gameboy emulator is like, <a href="https://">@Tomek1024</a> paints <a href="https://blog.rekawek.eu/2017/02/09/coffee-gb/">a pretty accurate portrait.</a>, I&rsquo;m impressed he managed to do it in less than two months. Embarrassingly it took me about six. Okay maybe seven. It was 2013.</em></p>
@@ -128,7 +128,7 @@ Admit it, you're just here for the screenshots
 
 <h3 id="graphics">Graphics</h3>
 
-<p>That was the easy bit. But no one likes playing a gameboy with no screen, so this is where the hacks started to creep in.</p>
+<p>That was the easy bit. But no one likes playing a Gameboy with no screen, so this is where the hacks started to creep in.</p>
 
 <p>Every so often the emulator emits a 2D array (<em>frame</em>) of pixels. The real hardware does this at a rate of 59.7 frames per second.<sup class="footnote-ref" id="fnref:4"><a href="#fn:4">4</a></sup></p>
 
