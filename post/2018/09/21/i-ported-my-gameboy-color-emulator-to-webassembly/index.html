@@ -113,12 +113,12 @@ Admit it, you're just here for the screenshots
 <p>No one ever talks about the journey, just the destination. But this time I&rsquo;ll indulge myself a little and document a few challenges I found along the way. Maybe we can all learn something. Learn something about porting Gameboy Color emulators to WASM at least.</p>
 
 <blockquote>
-<p><em>By the way, as a side note, if you want to know what programming your own Gameboy emulator is like, <a href="https://">@Tomek1024</a> paints <a href="https://blog.rekawek.eu/2017/02/09/coffee-gb/">a pretty accurate portrait.</a>, I&rsquo;m impressed he managed to do it in less than two months. Embarrassingly it took me about six. Okay maybe seven. It was 2013.</em></p>
+<p><em>By the way, as a side note, if you want to know what programming your own Gameboy emulator is like, <a href="https://">@Tomek1024</a> paints <a href="https://blog.rekawek.eu/2017/02/09/coffee-gb/">a pretty accurate portrait</a>, I&rsquo;m impressed he managed to do it in less than two months. Embarrassingly it took me about six. Okay maybe seven. It was 2013.</em></p>
 </blockquote>
 
 <p>Back to WebAssembly&hellip;</p>
 
-<p>The first real issue was, while my previous self had endeavored to make the code very modular, with individual packages for each hardware component (e.g. CPU, GPU, memory management unit etc) there were some bits of the codebase that made a lot of assumptions about its environment. These issues only presented themselves at runtime with the WASM virtual machine throwing up.</p>
+<p>The first real issue was, while my previous self had endeavored to make the code very modular, with individual packages for each hardware component (e.g. CPU, GPU, memory management unit etc) there were some bits of the code base that made a lot of assumptions about its environment. These issues only presented themselves at runtime with the WASM virtual machine throwing up.</p>
 
 <p>The problems were namely anything that was doing stuff around the <a href="https://golang.org/pkg/os/"><code>os</code></a> package, so like opening files, querying filesystems and user info. My emulator expected to read ROM files, and save battery state<sup class="footnote-ref" id="fnref:3"><a href="#fn:3">3</a></sup> to disk. The browser WASM environment is in a sandbox and won&rsquo;t let you play outside it.</p>
 
@@ -134,7 +134,7 @@ Admit it, you're just here for the screenshots
 
 <p>Drawing an array of pixels seemed like a prime candidate for the <a href="https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API">HTML5 canvas API</a>, constructing an <a href="https://developer.mozilla.org/en-US/docs/Web/API/ImageData"><code>ImageData</code></a> object and repainting on every frame update. When trying this though, using the go <a href="https://tip.golang.org/pkg/syscall/js/"><code>syscall/js</code></a> package, the performance was abysmal, eventually causing the browser tab to freeze. It appeared as though the having the emulator and UI on the same thread was causing a lot of contention.</p>
 
-<p>Sounded like a job for threading to me, but WebAssembly doesn&rsquo;t support threads (<a href="https://github.com/WebAssembly/threads">yet</a>) so needed to figure out something else.</p>
+<p>Sounded like a job for threading to me, but WebAssembly doesn&rsquo;t support threads (<a href="https://github.com/WebAssembly/threads">yet</a>) so I needed to figure out something else.</p>
 
 <h3 id="have-faith-in-the-workers">Have faith in the workers</h3>
 
@@ -154,7 +154,7 @@ Admit it, you're just here for the screenshots
 <p><em>Transferable objects are transferred from one context to another with a zero-copy operation, which results in a vast performance improvement when sending large data sets.</em></p>
 </blockquote>
 
-<p>&hellip;it seemed tricky to do in Go code because the transferable parameter needs to be an <code>ArrayBuffer</code> which doesn&rsquo;t seem possible with the API that <code>syscall/js</code> provides.</p>
+<p>&hellip;it seemed tricky to do in Go code because the transferable parameter needs to be an <code>ArrayBuffer</code> <del>which doesn&rsquo;t seem possible</del><sup><a href="#edit-2018-09-02">*see edit</a></sup> with the API that <code>syscall/js</code> provides.</p>
 
 <p>Instead, to workaround this, the first hack was born. Within my Go code, the array of pixels gets converted to a base64 string, which is sent to a global javascript function that issues the <code>postMessage</code> call. This yielded a much smoother experience in the user interface!</p>
 
@@ -376,6 +376,9 @@ Imagine more arrows
 </ul>
 
 <p>Thank you for reading, happy WASM&rsquo;ing.</p>
+
+<p><a name="edit-2018-09-02"></a>
+<small class="edits"><strong>UPDATE - 2018-09-22:</strong> <em>Since this post was written, <a href="https://twitter.com/JohanBrandhorst">Johan Brandhorst</a> on the gophers slack #webassembly channel gave me some tips on how to avoid the base64 hack with some tweaks to the Go code, turns out it is possible to use transferable on the <code>postMessage</code> call after all - see <a href="https://github.com/djhworld/gomeboycolor-wasm/commit/4f9933fd0fab6d9f310776d89f8c296e72af1c9a">this commit</a> for the changes!</em></a></p>
 <div class="footnotes">
 
 <hr />
@@ -383,7 +386,7 @@ Imagine more arrows
 <ol>
 <li id="fn:1">Nintendo have been very active recently shutting down ROM sites, and threatening legal action. So I&rsquo;m not going to risk hosting the ROMs myself.
  <a class="footnote-return" href="#fnref:1"><sup>[return]</sup></a></li>
-<li id="fn:2"><a href="http://casnocha.com/2010/11/how-to-draw-an-owl.html">http://casnocha.com/2010/11/how-to-draw-an-owl.html</a>
+<li id="fn:2"><a href="http://sethgodin.typepad.com/.a/6a00d83451b31569e2019aff29b7cd970c-800wi">http://sethgodin.typepad.com/.a/6a00d83451b31569e2019aff29b7cd970c-800wi</a>
  <a class="footnote-return" href="#fnref:2"><sup>[return]</sup></a></li>
 <li id="fn:3">Save data was written to memory and kept active via a battery. Which was cool <a href="https://medium.com/@paul.klingelhuber/reviving-gameboy-games-save-feature-4151c9b7273b">until the battery ran out of power</a>&hellip;
  <a class="footnote-return" href="#fnref:3"><sup>[return]</sup></a></li>
