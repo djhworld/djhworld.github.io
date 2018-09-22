@@ -259,8 +259,7 @@
 						<div class="alert alert-warn">
 							<strong>⚠️&nbsp;Google Chrome users&nbsp;⚠️</strong>
 							<p>Performance, at least for this application, is very sketchy in Chrome in comparison to Firefox and Safari.</p>
-							<p>You might find keyboard controls and the 'Stop' button become unresponsive in Chrome, so by default I've
-								locked the frame rate to 25 fps.</p>
+							<p>You might find keyboard controls and the 'Stop' button become unresponsive in Chrome, try adjusting the frame rate lock</p>
 						</div>
 
 
@@ -308,11 +307,10 @@
 
 
 		<script type="text/javascript">
+			document.getElementById("fpsLock").value = 59;
 			if (navigator.userAgent.includes("Chrome/")) {
-				document.getElementById("fpsLock").value = 25;
 				document.getElementById("chrome-warning").classList.remove("hidden");
 			} else {
-				document.getElementById("fpsLock").value = 35;
 				document.getElementById("chrome-warning").classList.add("hidden");
 			}
 
@@ -321,8 +319,7 @@
 					"headless": document.getElementById("headless").checked,
 					"colorMode": document.getElementById("colorMode").checked,
 					"showFps": document.getElementById("showFps").checked,
-					"skipBoot": document.getElementById("skipBoot").checked,
-					"fpsLock": parseInt(document.getElementById("fpsLock").options[document.getElementById("fpsLock").selectedIndex].value)
+					"skipBoot": document.getElementById("skipBoot").checked
 				}));
 			}
 
@@ -334,7 +331,6 @@
 					document.getElementById("colorMode").checked = config.colorMode;
 					document.getElementById("showFps").checked = config.showFps;
 					document.getElementById("skipBoot").checked = config.skipBoot;
-					document.getElementById("fpsLock").value = config.fpsLock;
 				}
 			}
 			loadSettings();
