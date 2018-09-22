@@ -90,7 +90,7 @@
                 document.getElementById("loading").innerHTML="loading...";
                 document.getElementById("start").disabled = true;
                 document.getElementById("stop").disabled = false;
-                emulatorWorker = new Worker('js/worker.js');                                                                                                                                    
+                emulatorWorker = new Worker('js/worker.js');
                 emulatorWorker.onmessage = onMessageHandler;
 			}
 
