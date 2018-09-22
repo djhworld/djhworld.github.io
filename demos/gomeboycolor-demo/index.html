@@ -100,9 +100,6 @@
 					case "launch-ok":
                         handleLaunched();
                         break;
-					case "stop-ok":
-						handleStop();
-						break;
 					case "screen-update":
 						updateCanvas(msg[1]);
 						break;
@@ -115,12 +112,6 @@
 			function handleLaunched() {
                 document.getElementById("loading").innerHTML="";
             }
-
-			function handleStop() {
-				emulatorWorker.terminate();
-				emulatorWorker = null;
-				reset();
-			}
 
 			function updateCanvas(screenData) {
 				var imageData = new ImageData(screenData, 160, 144);
@@ -137,7 +128,9 @@
 
 			function stop() {
 				if (emulatorWorker) {
-					emulatorWorker.postMessage(["stop", {}]);
+                    emulatorWorker.terminate();
+				    emulatorWorker = null;
+				    reset();
 				} else {
 					reset();
 				}
