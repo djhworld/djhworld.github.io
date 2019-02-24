@@ -2,65 +2,65 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Demos on djhworld</title>
-    <link>https://staging.public.djharper.co.uk/demos/</link>
+    <link>https://djhworld.github.io/demos/</link>
     <description>Recent content in Demos on djhworld</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-gb</language>
     
-	<atom:link href="https://staging.public.djharper.co.uk/demos/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://djhworld.github.io/demos/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title></title>
-      <link>https://staging.public.djharper.co.uk/demos/embed-issue/demo/</link>
+      <link>https://djhworld.github.io/demos/embed-issue/demo/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://staging.public.djharper.co.uk/demos/embed-issue/demo/</guid>
+      <guid>https://djhworld.github.io/demos/embed-issue/demo/</guid>
       <description>   Flash embed: type=&#39;application/x-shockwave-flash&#39;   Video embed: type=&#39;video/quicktime&#39;   type=&#39;video/webm&#39;   type=&#39;video/mp4&#39;   Audio embed: type=&#39;audio/mpeg&#39;     </description>
     </item>
     
     <item>
       <title></title>
-      <link>https://staging.public.djharper.co.uk/demos/embed-issue/supposed-to-be-audio/</link>
+      <link>https://djhworld.github.io/demos/embed-issue/supposed-to-be-audio/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://staging.public.djharper.co.uk/demos/embed-issue/supposed-to-be-audio/</guid>
+      <guid>https://djhworld.github.io/demos/embed-issue/supposed-to-be-audio/</guid>
       <description>    var i = 0; setInterval(function() { i = i + 1; document.getElementById(&#34;text&#34;).innerHTML=&#34;&#34; + i + &#34; no audio content here, embedding the page instead&#34;; }, 1000);   </description>
     </item>
     
     <item>
       <title></title>
-      <link>https://staging.public.djharper.co.uk/demos/embed-issue/supposed-to-be-flash/</link>
+      <link>https://djhworld.github.io/demos/embed-issue/supposed-to-be-flash/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://staging.public.djharper.co.uk/demos/embed-issue/supposed-to-be-flash/</guid>
+      <guid>https://djhworld.github.io/demos/embed-issue/supposed-to-be-flash/</guid>
       <description>    var i = 0; setInterval(function() { i = i + 1; document.getElementById(&#34;text&#34;).innerHTML=&#34;&#34; + i + &#34; no flash content here, embedding the page instead&#34;; }, 1000);   </description>
     </item>
     
     <item>
       <title></title>
-      <link>https://staging.public.djharper.co.uk/demos/embed-issue/supposed-to-be-video/</link>
+      <link>https://djhworld.github.io/demos/embed-issue/supposed-to-be-video/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://staging.public.djharper.co.uk/demos/embed-issue/supposed-to-be-video/</guid>
+      <guid>https://djhworld.github.io/demos/embed-issue/supposed-to-be-video/</guid>
       <description>    var i = 0; setInterval(function() { i = i + 1; document.getElementById(&#34;text&#34;).innerHTML=&#34;&#34; + i + &#34; no video content here, embedding the page instead&#34;; }, 1000);   </description>
     </item>
     
     <item>
       <title></title>
-      <link>https://staging.public.djharper.co.uk/demos/gomeboycolor-demo/</link>
+      <link>https://djhworld.github.io/demos/gomeboycolor-demo/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://staging.public.djharper.co.uk/demos/gomeboycolor-demo/</guid>
+      <guid>https://djhworld.github.io/demos/gomeboycolor-demo/</guid>
       <description>#screen { width:300px; margin-left:auto; margin-right:auto; display:block; } .text-center { text-align:center; } #screen-div { background-color: #34383b; border: 1px #000 solid; border-radius: 12px; border-bottom-right-radius: 50px; border-bottom-left-radius: 50px; margin-left: auto; margin-right: auto; display: block; padding: 0px; width: 300px; height:175px; } h1#title { font-size:13px; color: #ebf2f5; font-style: italic; font-weight: bold; margin:0px; } h1#title small { font-family: &#34;Comic Sans MS&#34;, sans-serif; font-style: normal; font-weight: 900 !important; font-size:13px; } h1#title small span.c { color: #7d2259; } h1#title small span.</description>
     </item>
     
     <item>
       <title></title>
-      <link>https://staging.public.djharper.co.uk/demos/gomeboycolor/</link>
+      <link>https://djhworld.github.io/demos/gomeboycolor/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://staging.public.djharper.co.uk/demos/gomeboycolor/</guid>
+      <guid>https://djhworld.github.io/demos/gomeboycolor/</guid>
       <description>gomeboycolor     body { background-color: #472981; color: #ebf2f5; } #screen { width: 800px; margin-left: auto; margin-right: auto; display: block; } #screen-div { background-color: #34383b; border: 1px #000 solid; border-radius: 12px; border-bottom-right-radius: 50px; border-bottom-left-radius: 50px; margin-left: auto; margin-right: auto; display: block; padding: 0px; width: 800px; height: 510px; margin-top: 15px; } .buttons { margin-top: 12px; } h1#title { color: #ebf2f5; font-style: italic; font-weight: bold; } h1#title small { font-family: &#34;</description>
     </item>
     
