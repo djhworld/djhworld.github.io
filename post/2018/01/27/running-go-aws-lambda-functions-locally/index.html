@@ -44,7 +44,7 @@
 <main>
 <article class="post">
   
-  <h1><a href="https://djhworld.github.io/post/2018/01/27/running-go-aws-lambda-functions-locally/" title="Running Go AWS Lambda functions locally">Running Go AWS Lambda functions locally</a></h1>
+  <h1><a href="https://staging.public.djharper.co.uk/post/2018/01/27/running-go-aws-lambda-functions-locally/" title="Running Go AWS Lambda functions locally">Running Go AWS Lambda functions locally</a></h1>
   <p class="small gray">
     <time datetime="2018-01-27">Saturday, January 27, 2018</time>
 </p>
@@ -76,12 +76,12 @@
     <span style="color:#4070a0">&#34;github.com/aws/aws-lambda-go/lambda&#34;</span>
 )
  
-<span style="color:#007020;font-weight:bold">func</span> ToUpperHandler(input <span style="color:#902000">string</span>) (<span style="color:#902000">string</span>, <span style="color:#902000">error</span>) {
-    <span style="color:#007020;font-weight:bold">return</span> strings.ToUpper(input), <span style="color:#007020;font-weight:bold">nil</span>
+<span style="color:#007020;font-weight:bold">func</span> <span style="color:#06287e">ToUpperHandler</span>(input <span style="color:#902000">string</span>) (<span style="color:#902000">string</span>, <span style="color:#902000">error</span>) {
+    <span style="color:#007020;font-weight:bold">return</span> strings.<span style="color:#06287e">ToUpper</span>(input), <span style="color:#007020;font-weight:bold">nil</span>
 }
  
-<span style="color:#007020;font-weight:bold">func</span> main() {
-    lambda.Start(ToUpperHandler)
+<span style="color:#007020;font-weight:bold">func</span> <span style="color:#06287e">main</span>() {
+    lambda.<span style="color:#06287e">Start</span>(ToUpperHandler)
 }</code></pre></div>
 <figcaption>The simplest of functions that converts a string to uppercase</figcaption>
 </figure>
@@ -141,7 +141,7 @@
 
 <p>I&rsquo;ve created a small library imaginatively called <a href="https://github.com/djhworld/go-lambda-invoke">go-lambda-invoke</a> that wraps up this logic, meaning you can just make the following call in your code</p>
 
-<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go">response, err <span style="color:#666">:=</span> golambdainvoke.Run(<span style="color:#40a070">8001</span>, <span style="color:#4070a0">&#34;daniel&#34;</span>)</code></pre></div>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go">response, err <span style="color:#666">:=</span> golambdainvoke.<span style="color:#06287e">Run</span>(<span style="color:#40a070">8001</span>, <span style="color:#4070a0">&#34;daniel&#34;</span>)</code></pre></div>
 
 <p>It probably has limited uses, in most cases just writing plain old unit tests for your logic should be sufficient, rather than testing the scaffolding AWS erects around it. However I could see it being useful if you want to test that you&rsquo;ve built a valid <code>linux</code> binary and perform some pre-deploy sanity tests or something.</p>
 
@@ -171,7 +171,7 @@
   
 
   var disqus_config = function () {
-  this.page.url = "https://djhworld.github.io/post/2018/01/27/running-go-aws-lambda-functions-locally/";
+  this.page.url = "https://staging.public.djharper.co.uk/post/2018/01/27/running-go-aws-lambda-functions-locally/";
   this.page.identifier = "892f4b38f829780ff325fb03026b3b1d";
   };
 

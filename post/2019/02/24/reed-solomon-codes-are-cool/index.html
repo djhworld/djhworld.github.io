@@ -1,0 +1,155 @@
+<!doctype html> 
+<html lang="en-gb"> 
+<head>
+  <meta charset="utf-8">
+
+   
+  <title>Reed Solomon codes are cool - djhworld</title>
+  
+
+   <meta name="author" content="">
+  <meta name="description" content="thoughts">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico">
+  
+  
+  <link rel="stylesheet" href="/style.css" />
+  
+   
+
+</head>
+
+<body class="">
+
+  
+
+  <div class="wrap">
+    <header class="mb">
+      <h1 class="h2 m-0"><a href="/" title="daniel harper">djhworld</a></h1>
+    <div id="navbar">
+      <a href="/">home</a>
+      <a href="/about">about</a>
+      <a href="/post/index.xml" type="application/rss+xml" target="_blank" title="never let rss die">rss</a>
+    </div>
+
+
+      <p class="site-description">thoughts</p>
+
+      <hr/>
+    </header>
+
+
+<main>
+<article class="post">
+  
+  <h1><a href="https://staging.public.djharper.co.uk/post/2019/02/24/reed-solomon-codes-are-cool/" title="Reed Solomon codes are cool">Reed Solomon codes are cool</a></h1>
+  <p class="small gray">
+    <time datetime="2019-02-24">Sunday, February 24, 2019</time>
+</p>
+  
+  
+
+<figure>
+<img src="/img/kindle.jpg" title="my bits aren't what they used to be" style="margin-left:auto; margin-right:auto; display:block" />
+<br/>
+</figure>
+
+<p>Imagine wending your way through a great book on your e-reader, the world melting away, and suddenly everything comes crashing <span title="back to life">back to reality</span> with an apologetic <em>Sorry! Chapter 20 corrupted!</em> message.</p>
+
+<p>A few tired cells of the flash storage gave up the ghost overnight and corrupted your book.</p>
+
+<p>Wouldn&rsquo;t it be great if your device didn&rsquo;t complain about its innards, and recovered from the problem itself?</p>
+
+<p>As with all blog articles with long winded opening sections, there&rsquo;s a big reveal coming. Which gives me great pleasure to welcome <a href="https://en.wikipedia.org/wiki/Reed%E2%80%93Solomon_error_correction">Reed Solomon</a> to the stage! Come on out Reed, Solomon - you too!</p>
+
+<h2 id="recovering-from-corruption">Recovering from corruption</h2>
+
+<p><em>sigh. I know&hellip;</em></p>
+
+<p>The central idea of Reed Solomon codes, is you <strong>can recover data in the event of corruption or data loss up to a tolerated level of failure</strong>. This is commonly found in data storage or signal processing systems as an extra layer of protection in the event of problems arising.</p>
+
+<p>It&rsquo;s actually used a lot in your day to day life, <a href="https://en.wikipedia.org/wiki/Reed%E2%80%93Solomon_error_correction">according to Wikipedia</a>:</p>
+
+<blockquote>
+<p><em>They have many applications, the most prominent of which include consumer technologies such as CDs, DVDs, Blu-ray Discs, QR Codes, data transmission technologies such as DSL and WiMAX, broadcast systems such as satellite communications, DVB and ATSC, and storage systems such as RAID 6.</em></p>
+</blockquote>
+
+<p>Even if a QR code gets a bit smudged in the rain, or your CD-ROM copy of Encarta &lsquo;98 is suffering from a bout of bit rot, you can take solace in the fact that this error correction algorithm keeps the good times rolling.</p>
+
+<p>Which is kind of reassuring in a way, especially with the write-once-read-many situations where getting a backup copy might involve a lot of time and money.</p>
+
+<p>The Wikipedia page doesn&rsquo;t mention cloud storage, I&rsquo;m pretty sure Google use it as part of their file storage systems<sup class="footnote-ref" id="fnref:1"><a href="#fn:1">1</a></sup>, so you have Reed Solomon to thank for at least one of the lines of defense that keep your cloud data durable.</p>
+
+<p>It&rsquo;s even being used as a <a href="https://onlinelibrary.wiley.com/doi/abs/10.1002/anie.201411378">safety net for storing data in DNA</a>, which is mind blowing. If anything, it shows that if you can store something in bits, this algorithm is generic enough to provide an error correction mechanism.</p>
+
+<h2 id="what-s-going-on">What&rsquo;s going on</h2>
+
+<p>In the storage case, you prepare your data by splitting it into fixed evenly sized <em>data shards</em>, then feed them to the algorithm. After some number crunching, it will return some additional <em>parity shards</em>. This bag of shards make up the set of data you store on disk(s).</p>
+
+<figure>
+<img src="/img/reed-solomon1.png" title="serving up some good parity" style="margin-left:auto; margin-right:auto; display:block" />
+<br/>
+</figure>
+
+<p>Those parity shards, are the magic sauce that lets you recover <strong>any combination</strong> of corrupted or missing shard(s).</p>
+
+<figure>
+<img src="/img/reed-solomon2.png" title="hey listen, we all lose things some time" style="margin-left:auto; margin-right:auto; display:block" />
+<br/>
+</figure>
+
+<p>It just amazes me that this works! It feels like some sort of magic, but it&rsquo;s actually grounded in some clever mathematics, that I won&rsquo;t attempt to explain or provide a strained analogy for, <a href="https://www.backblaze.com/blog/reed-solomon/">other people have done it better</a>.</p>
+
+<p>It&rsquo;s not limitless though, the amount of parity shards dictates the maximum number of failed shards you can recover. So you&rsquo;d base this on expected level of failure.</p>
+
+<p>You could say you want one parity shard for each data shard, the downside to that approach is the storage required would be double, as well as increasing the computation time needed to recover from failure. Probably overkill for not much gain.</p>
+
+<p>According to <a href="https://www.backblaze.com/blog/reed-solomon/">this post</a>, Backblaze uses a parity of 3 for their Vault product, which from the sounds of it is the sweet spot between balancing the risk of failure vs. processing speed.</p>
+
+<blockquote>
+<p><em>A Vault splits data into 17 shards, and has to calculate 3 parity shards from that, so that’s the configuration we use for performance measurements. Running in a single thread on Storage Pod hardware, our library can process incoming data at 149 megabytes per second.</em></p>
+</blockquote>
+
+<h2 id="yeah-seen-it-all-before">Yeah, seen it all before</h2>
+
+<p>This might be common knowledge to a lot of people but I found it an interesting detour down the Wikipedia rabbit hole. I&rsquo;m not sure if I&rsquo;ll ever find myself implementing something that uses this, but it&rsquo;s nice to have it in the toolbox.</p>
+<div class="footnotes">
+
+<hr />
+
+<ol>
+<li id="fn:1">The Data Centre as a Computer, 1.6.2 <a href="https://www.morganclaypool.com/doi/pdf/10.2200/S00874ED3V01Y201809CAC046">https://www.morganclaypool.com/doi/pdf/10.2200/S00874ED3V01Y201809CAC046</a>
+ <a class="footnote-return" href="#fnref:1"><sup>[return]</sup></a></li>
+</ol>
+</div>
+
+</article>
+</main>
+
+  <div id="disqus_thread"></div>
+  <script>
+
+  
+
+  var disqus_config = function () {
+  this.page.url = "https://staging.public.djharper.co.uk/post/2019/02/24/reed-solomon-codes-are-cool/";
+  this.page.identifier = "b42762e14eaa41ccbea01101ce4c76b0";
+  };
+
+  (function() { 
+  var d = document, s = d.createElement('script');
+  s.src = 'https://djhworld.disqus.com/embed.js';
+  s.setAttribute('data-timestamp', +new Date());
+  (d.head || d.body).appendChild(s);
+  })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+</div>
+
+
+
+</body>
+</html>

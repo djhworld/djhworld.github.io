@@ -44,7 +44,7 @@
 <main>
 <article class="post">
   
-  <h1><a href="https://djhworld.github.io/post/2018/09/21/i-ported-my-gameboy-color-emulator-to-webassembly/" title="I ported my Gameboy Color emulator to WebAssembly">I ported my Gameboy Color emulator to WebAssembly</a></h1>
+  <h1><a href="https://staging.public.djharper.co.uk/post/2018/09/21/i-ported-my-gameboy-color-emulator-to-webassembly/" title="I ported my Gameboy Color emulator to WebAssembly">I ported my Gameboy Color emulator to WebAssembly</a></h1>
   <p class="small gray">
     <time datetime="2018-09-21">Friday, September 21, 2018</time>
 </p>
@@ -169,7 +169,7 @@ The hack in diagram form.
 <p>Go code:</p>
 
 <figure>
-<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#007020;font-weight:bold">func</span> (s <span style="color:#666">*</span>html5CanvasDisplay) DrawFrame(screenData <span style="color:#666">*</span>types.Screen) {
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#007020;font-weight:bold">func</span> (s <span style="color:#666">*</span>html5CanvasDisplay) <span style="color:#06287e">DrawFrame</span>(screenData <span style="color:#666">*</span>types.Screen) {
     <span style="color:#007020;font-weight:bold">for</span> y <span style="color:#666">:=</span> <span style="color:#40a070">0</span>; y &lt; <span style="color:#40a070">144</span>; y<span style="color:#666">++</span> {
         <span style="color:#007020;font-weight:bold">for</span> x <span style="color:#666">:=</span> <span style="color:#40a070">0</span>; x &lt; <span style="color:#40a070">160</span>; x<span style="color:#666">++</span> {
             <span style="color:#007020;font-weight:bold">var</span> pixel types.RGB = screenData[y][x]
@@ -182,10 +182,10 @@ The hack in diagram form.
    }
 
    <span style="color:#60a0b0;font-style:italic">// hack
-</span><span style="color:#60a0b0;font-style:italic"></span>   screenData <span style="color:#666">:=</span> base64.StdEncoding.EncodeToString(s.imageData)
+</span><span style="color:#60a0b0;font-style:italic"></span>   screenData <span style="color:#666">:=</span> base64.StdEncoding.<span style="color:#06287e">EncodeToString</span>(s.imageData)
 
    <span style="color:#60a0b0;font-style:italic">// call global function
-</span><span style="color:#60a0b0;font-style:italic"></span>   js.Global().Call(<span style="color:#4070a0">&#34;sendScreenUpdate&#34;</span>, screenData)
+</span><span style="color:#60a0b0;font-style:italic"></span>   js.<span style="color:#06287e">Global</span>().<span style="color:#06287e">Call</span>(<span style="color:#4070a0">&#34;sendScreenUpdate&#34;</span>, screenData)
 }</code></pre></div>
 <figcaption>Note the image data is a flattened array that represents the pixel grid</figcaption>
 </figure>
@@ -248,21 +248,21 @@ The Circle
 
 <figure>
 <div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#007020;font-weight:bold">var</span> messageCB js.Callback
-messageCB = js.NewCallback(<span style="color:#007020;font-weight:bold">func</span>(args []js.Value) {
-    input <span style="color:#666">:=</span> args[<span style="color:#40a070">0</span>].Get(<span style="color:#4070a0">&#34;data&#34;</span>)
-    <span style="color:#007020;font-weight:bold">switch</span> input.Index(<span style="color:#40a070">0</span>).String() {
+messageCB = js.<span style="color:#06287e">NewCallback</span>(<span style="color:#007020;font-weight:bold">func</span>(args []js.Value) {
+    input <span style="color:#666">:=</span> args[<span style="color:#40a070">0</span>].<span style="color:#06287e">Get</span>(<span style="color:#4070a0">&#34;data&#34;</span>)
+    <span style="color:#007020;font-weight:bold">switch</span> input.<span style="color:#06287e">Index</span>(<span style="color:#40a070">0</span>).<span style="color:#06287e">String</span>() {
         <span style="color:#007020;font-weight:bold">case</span> <span style="color:#4070a0">&#34;keyup&#34;</span>:
             <span style="color:#60a0b0;font-style:italic">// tell emulator what key has been released 
-</span><span style="color:#60a0b0;font-style:italic"></span>            i.KeyHandler.KeyUp(input.Index(<span style="color:#40a070">1</span>).Int())
+</span><span style="color:#60a0b0;font-style:italic"></span>            i.KeyHandler.<span style="color:#06287e">KeyUp</span>(input.<span style="color:#06287e">Index</span>(<span style="color:#40a070">1</span>).<span style="color:#06287e">Int</span>())
         <span style="color:#007020;font-weight:bold">case</span> <span style="color:#4070a0">&#34;keydown&#34;</span>:
             <span style="color:#60a0b0;font-style:italic">// tell emulator what key has been pressed
-</span><span style="color:#60a0b0;font-style:italic"></span>            i.KeyHandler.KeyDown(input.Index(<span style="color:#40a070">1</span>).Int())
+</span><span style="color:#60a0b0;font-style:italic"></span>            i.KeyHandler.<span style="color:#06287e">KeyDown</span>(input.<span style="color:#06287e">Index</span>(<span style="color:#40a070">1</span>).<span style="color:#06287e">Int</span>())
     }
 })
 
 <span style="color:#60a0b0;font-style:italic">// receive messages from outside
-</span><span style="color:#60a0b0;font-style:italic"></span>self <span style="color:#666">:=</span> js.Global().Get(<span style="color:#4070a0">&#34;self&#34;</span>)
-self.Call(<span style="color:#4070a0">&#34;addEventListener&#34;</span>, <span style="color:#4070a0">&#34;message&#34;</span>, messageCB, <span style="color:#007020;font-weight:bold">false</span>)</code></pre></div>
+</span><span style="color:#60a0b0;font-style:italic"></span>self <span style="color:#666">:=</span> js.<span style="color:#06287e">Global</span>().<span style="color:#06287e">Get</span>(<span style="color:#4070a0">&#34;self&#34;</span>)
+self.<span style="color:#06287e">Call</span>(<span style="color:#4070a0">&#34;addEventListener&#34;</span>, <span style="color:#4070a0">&#34;message&#34;</span>, messageCB, <span style="color:#007020;font-weight:bold">false</span>)</code></pre></div>
 <figcaption>Handling the messages received in the worker</figcaption>
 </figure>
 
@@ -406,7 +406,7 @@ Imagine more arrows
   
 
   var disqus_config = function () {
-  this.page.url = "https://djhworld.github.io/post/2018/09/21/i-ported-my-gameboy-color-emulator-to-webassembly/";
+  this.page.url = "https://staging.public.djharper.co.uk/post/2018/09/21/i-ported-my-gameboy-color-emulator-to-webassembly/";
   this.page.identifier = "d6549c94070be134cf521bb895b0d457";
   };
 

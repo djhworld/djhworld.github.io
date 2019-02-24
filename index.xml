@@ -2,21 +2,32 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>djhworld</title>
-    <link>https://djhworld.github.io/</link>
+    <link>https://staging.public.djharper.co.uk/</link>
     <description>Recent content on djhworld</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-gb</language>
-    <lastBuildDate>Fri, 21 Sep 2018 09:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 24 Feb 2019 09:00:00 +0000</lastBuildDate>
     
-	<atom:link href="https://djhworld.github.io/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://staging.public.djharper.co.uk/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
+      <title>Reed Solomon codes are cool</title>
+      <link>https://staging.public.djharper.co.uk/post/2019/02/24/reed-solomon-codes-are-cool/</link>
+      <pubDate>Sun, 24 Feb 2019 09:00:00 +0000</pubDate>
+      
+      <guid>https://staging.public.djharper.co.uk/post/2019/02/24/reed-solomon-codes-are-cool/</guid>
+      <description>Imagine wending your way through a great book on your e-reader, the world melting away, and suddenly everything comes crashing back to reality with an apologetic Sorry! Chapter 20 corrupted! message.
+A few tired cells of the flash storage gave up the ghost overnight and corrupted your book.
+Wouldn&amp;rsquo;t it be great if your device didn&amp;rsquo;t complain about its innards, and recovered from the problem itself?</description>
+    </item>
+    
+    <item>
       <title>I ported my Gameboy Color emulator to WebAssembly</title>
-      <link>https://djhworld.github.io/post/2018/09/21/i-ported-my-gameboy-color-emulator-to-webassembly/</link>
+      <link>https://staging.public.djharper.co.uk/post/2018/09/21/i-ported-my-gameboy-color-emulator-to-webassembly/</link>
       <pubDate>Fri, 21 Sep 2018 09:00:00 +0000</pubDate>
       
-      <guid>https://djhworld.github.io/post/2018/09/21/i-ported-my-gameboy-color-emulator-to-webassembly/</guid>
+      <guid>https://staging.public.djharper.co.uk/post/2018/09/21/i-ported-my-gameboy-color-emulator-to-webassembly/</guid>
       <description>Around five years ago I wrote a Gameboy Color emulator in Go. It was a very frustrating, but rewarding experience that I&amp;rsquo;ve been dining out on in job interviews ever since.
 However, as the passage of time progressed, it landed on the pile of mostly-done-but-not-finished projects and left largely abandoned. One might generously say, on hiatus. Well, until very recently that is.
   That 5 year gap   You see, a few weeks ago Go 1.</description>
@@ -24,10 +35,10 @@ However, as the passage of time progressed, it landed on the pile of mostly-done
     
     <item>
       <title>I thought I found a browser security bug</title>
-      <link>https://djhworld.github.io/post/2018/08/12/i-thought-i-found-a-browser-security-bug/</link>
+      <link>https://staging.public.djharper.co.uk/post/2018/08/12/i-thought-i-found-a-browser-security-bug/</link>
       <pubDate>Sun, 12 Aug 2018 09:00:00 +0000</pubDate>
       
-      <guid>https://djhworld.github.io/post/2018/08/12/i-thought-i-found-a-browser-security-bug/</guid>
+      <guid>https://staging.public.djharper.co.uk/post/2018/08/12/i-thought-i-found-a-browser-security-bug/</guid>
       <description>A few weeks ago I thought I&amp;rsquo;d stumbled across something really bad when just casually browsing the web. It all started on a financial information website, upon clicking a link, the page partially loaded some of its content, then, without warning, redirected the browser to a completely different domain with some weird spam/search engine content on it, from a known domain squatter.
 Strange&amp;hellip;
 After refreshing a few times, it was still doing it.</description>
@@ -35,85 +46,85 @@ After refreshing a few times, it was still doing it.</description>
     
     <item>
       <title>Using HyperLogLog in production, a retrospective</title>
-      <link>https://djhworld.github.io/post/2018/03/29/using-hyperloglog-in-production-a-retrospective/</link>
+      <link>https://staging.public.djharper.co.uk/post/2018/03/29/using-hyperloglog-in-production-a-retrospective/</link>
       <pubDate>Thu, 29 Mar 2018 12:00:00 +0000</pubDate>
       
-      <guid>https://djhworld.github.io/post/2018/03/29/using-hyperloglog-in-production-a-retrospective/</guid>
+      <guid>https://staging.public.djharper.co.uk/post/2018/03/29/using-hyperloglog-in-production-a-retrospective/</guid>
       <description>A few years ago I was involved in a project that required us to provide a time series metric on how many concurrent users were using our products, and what quality of service they were receiving.
 On embarking on this journey, it quickly became apparent that the tricky part would be doing the count of unique concurrent users, over a set of dimensions in one minute windows. We&amp;rsquo;d run into the classic count-distinct problem.</description>
     </item>
     
     <item>
       <title>Running Go AWS Lambda functions locally</title>
-      <link>https://djhworld.github.io/post/2018/01/27/running-go-aws-lambda-functions-locally/</link>
+      <link>https://staging.public.djharper.co.uk/post/2018/01/27/running-go-aws-lambda-functions-locally/</link>
       <pubDate>Sat, 27 Jan 2018 12:00:00 +0000</pubDate>
       
-      <guid>https://djhworld.github.io/post/2018/01/27/running-go-aws-lambda-functions-locally/</guid>
+      <guid>https://staging.public.djharper.co.uk/post/2018/01/27/running-go-aws-lambda-functions-locally/</guid>
       <description>AWS recently announced Go support for Lambda, giving developers more choice over how their functions are written.
 In an attempt to kick the tires of the new runtime, I found myself rummaging around the open source library required when writing Lambda functions in Go, and was delighted to find a glimpse into what happens when your function is invoked. This post is a brief tour of what I’ve gathered, and describes a simple way of invoking your function in a local environment.</description>
     </item>
     
     <item>
       <title>about</title>
-      <link>https://djhworld.github.io/about/</link>
+      <link>https://staging.public.djharper.co.uk/about/</link>
       <pubDate>Wed, 24 Jan 2018 20:32:47 +0000</pubDate>
       
-      <guid>https://djhworld.github.io/about/</guid>
+      <guid>https://staging.public.djharper.co.uk/about/</guid>
       <description> daniel harper senior software engineer @ BBC
  keybase: keybase.io/djhworld twitter: @djhworld code: github/djhworld irc/freenode: djhworld  projects  caniaffordtobuy.co.uk  interests  video games data engineering tinkering with raspberry pis personal finance fiction films with bill murray in them  this website  statically generated using hugo  theme: heather-hugo (tweaked)   </description>
     </item>
     
     <item>
       <title></title>
-      <link>https://djhworld.github.io/demos/embed-issue/demo/</link>
+      <link>https://staging.public.djharper.co.uk/demos/embed-issue/demo/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://djhworld.github.io/demos/embed-issue/demo/</guid>
+      <guid>https://staging.public.djharper.co.uk/demos/embed-issue/demo/</guid>
       <description>   Flash embed: type=&#39;application/x-shockwave-flash&#39;   Video embed: type=&#39;video/quicktime&#39;   type=&#39;video/webm&#39;   type=&#39;video/mp4&#39;   Audio embed: type=&#39;audio/mpeg&#39;     </description>
     </item>
     
     <item>
       <title></title>
-      <link>https://djhworld.github.io/demos/embed-issue/supposed-to-be-audio/</link>
+      <link>https://staging.public.djharper.co.uk/demos/embed-issue/supposed-to-be-audio/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://djhworld.github.io/demos/embed-issue/supposed-to-be-audio/</guid>
+      <guid>https://staging.public.djharper.co.uk/demos/embed-issue/supposed-to-be-audio/</guid>
       <description>    var i = 0; setInterval(function() { i = i + 1; document.getElementById(&#34;text&#34;).innerHTML=&#34;&#34; + i + &#34; no audio content here, embedding the page instead&#34;; }, 1000);   </description>
     </item>
     
     <item>
       <title></title>
-      <link>https://djhworld.github.io/demos/embed-issue/supposed-to-be-flash/</link>
+      <link>https://staging.public.djharper.co.uk/demos/embed-issue/supposed-to-be-flash/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://djhworld.github.io/demos/embed-issue/supposed-to-be-flash/</guid>
+      <guid>https://staging.public.djharper.co.uk/demos/embed-issue/supposed-to-be-flash/</guid>
       <description>    var i = 0; setInterval(function() { i = i + 1; document.getElementById(&#34;text&#34;).innerHTML=&#34;&#34; + i + &#34; no flash content here, embedding the page instead&#34;; }, 1000);   </description>
     </item>
     
     <item>
       <title></title>
-      <link>https://djhworld.github.io/demos/embed-issue/supposed-to-be-video/</link>
+      <link>https://staging.public.djharper.co.uk/demos/embed-issue/supposed-to-be-video/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://djhworld.github.io/demos/embed-issue/supposed-to-be-video/</guid>
+      <guid>https://staging.public.djharper.co.uk/demos/embed-issue/supposed-to-be-video/</guid>
       <description>    var i = 0; setInterval(function() { i = i + 1; document.getElementById(&#34;text&#34;).innerHTML=&#34;&#34; + i + &#34; no video content here, embedding the page instead&#34;; }, 1000);   </description>
     </item>
     
     <item>
       <title></title>
-      <link>https://djhworld.github.io/demos/gomeboycolor-demo/</link>
+      <link>https://staging.public.djharper.co.uk/demos/gomeboycolor-demo/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://djhworld.github.io/demos/gomeboycolor-demo/</guid>
+      <guid>https://staging.public.djharper.co.uk/demos/gomeboycolor-demo/</guid>
       <description>#screen { width:300px; margin-left:auto; margin-right:auto; display:block; } .text-center { text-align:center; } #screen-div { background-color: #34383b; border: 1px #000 solid; border-radius: 12px; border-bottom-right-radius: 50px; border-bottom-left-radius: 50px; margin-left: auto; margin-right: auto; display: block; padding: 0px; width: 300px; height:175px; } h1#title { font-size:13px; color: #ebf2f5; font-style: italic; font-weight: bold; margin:0px; } h1#title small { font-family: &#34;Comic Sans MS&#34;, sans-serif; font-style: normal; font-weight: 900 !important; font-size:13px; } h1#title small span.c { color: #7d2259; } h1#title small span.</description>
     </item>
     
     <item>
       <title></title>
-      <link>https://djhworld.github.io/demos/gomeboycolor/</link>
+      <link>https://staging.public.djharper.co.uk/demos/gomeboycolor/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://djhworld.github.io/demos/gomeboycolor/</guid>
+      <guid>https://staging.public.djharper.co.uk/demos/gomeboycolor/</guid>
       <description>gomeboycolor     body { background-color: #472981; color: #ebf2f5; } #screen { width: 800px; margin-left: auto; margin-right: auto; display: block; } #screen-div { background-color: #34383b; border: 1px #000 solid; border-radius: 12px; border-bottom-right-radius: 50px; border-bottom-left-radius: 50px; margin-left: auto; margin-right: auto; display: block; padding: 0px; width: 800px; height: 510px; margin-top: 15px; } .buttons { margin-top: 12px; } h1#title { color: #ebf2f5; font-style: italic; font-weight: bold; } h1#title small { font-family: &#34;</description>
     </item>
     
