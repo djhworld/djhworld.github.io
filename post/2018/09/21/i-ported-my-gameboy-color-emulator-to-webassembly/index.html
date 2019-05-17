@@ -216,7 +216,7 @@ The hack in diagram form.
 <span style="color:#007020;font-weight:bold">function</span> updateCanvas(screenData) {
     <span style="color:#007020;font-weight:bold">var</span> decodedData <span style="color:#666">=</span> <span style="color:#007020;font-weight:bold">new</span> Uint8ClampedArray(screenData);
     <span style="color:#007020;font-weight:bold">var</span> imageData <span style="color:#666">=</span> <span style="color:#007020;font-weight:bold">new</span> ImageData(decodedData, <span style="color:#40a070">160</span>, <span style="color:#40a070">144</span>);
-    canvasContext.putImageData(imageData, canvas.width <span style="">/ 4, 4);</span>
+    canvasContext.putImageData(imageData, canvas.width <span style="color:#666">/</span> <span style="color:#40a070">4</span>, <span style="color:#40a070">4</span>);
 }
 </code></pre></div>
 <figcaption>Repaint the canvas context with the new frame</figcaption>
@@ -399,6 +399,20 @@ Imagine more arrows
 
 </article>
 </main>
+<script>
+if (window.location.hostname == 'djhworld.github.io') {
+    var _me = new Image(1, 1);
+    _me.src = "https://d1lcmkb9w8fvni.cloudfront.net/me.png?u=" +
+      encodeURIComponent(window.location.pathname) +
+      (document.referrer ? "&r=" + encodeURIComponent(document.referrer)
+                         : "");
+}
+</script>
+<noscript>
+  <img src="https://d1lcmkb9w8fvni.cloudfront.net/me.png?u=https%3a%2f%2fdjhworld.github.io%2fpost%2f2018%2f09%2f21%2fi-ported-my-gameboy-color-emulator-to-webassembly%2f" />
+</noscript>
+
+
 
   <div id="disqus_thread"></div>
   <script>
@@ -423,5 +437,9 @@ Imagine more arrows
 
 
 
+
+
+
 </body>
 </html>
+

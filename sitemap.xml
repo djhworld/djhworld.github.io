@@ -3,8 +3,20 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://djhworld.github.io/post/</loc>
+    <lastmod>2019-02-24T09:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://djhworld.github.io/post/2019/02/24/reed-solomon-codes-are-cool/</loc>
     <lastmod>2019-02-24T09:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://djhworld.github.io/</loc>
+    <lastmod>2019-02-24T09:00:00+00:00</lastmod>
+    <priority>0</priority>
   </url>
   
   <url>
@@ -34,26 +46,32 @@
   
   <url>
     <loc>https://djhworld.github.io/demos/embed-issue/demo/</loc>
+    <priority>0</priority>
   </url>
   
   <url>
     <loc>https://djhworld.github.io/demos/embed-issue/supposed-to-be-audio/</loc>
+    <priority>0</priority>
   </url>
   
   <url>
     <loc>https://djhworld.github.io/demos/embed-issue/supposed-to-be-flash/</loc>
+    <priority>0</priority>
   </url>
   
   <url>
     <loc>https://djhworld.github.io/demos/embed-issue/supposed-to-be-video/</loc>
+    <priority>0</priority>
   </url>
   
   <url>
     <loc>https://djhworld.github.io/demos/gomeboycolor-demo/</loc>
+    <priority>0</priority>
   </url>
   
   <url>
     <loc>https://djhworld.github.io/demos/gomeboycolor/</loc>
+    <priority>0</priority>
   </url>
   
   <url>
@@ -67,19 +85,7 @@
   </url>
   
   <url>
-    <loc>https://djhworld.github.io/post/</loc>
-    <lastmod>2019-02-24T09:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>https://djhworld.github.io/tags/</loc>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://djhworld.github.io/</loc>
-    <lastmod>2019-02-24T09:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
