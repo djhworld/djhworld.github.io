@@ -6,10 +6,20 @@
     <description>Recent content in Posts on djhworld</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-gb</language>
-    <lastBuildDate>Sun, 24 Feb 2019 09:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 21 May 2019 09:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://djhworld.github.io/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>I don&#39;t know how CPUs work so I simulated one in code</title>
+      <link>https://djhworld.github.io/post/2019/05/21/i-dont-know-how-cpus-work-so-i-simulated-one-in-code/</link>
+      <pubDate>Tue, 21 May 2019 09:00:00 +0000</pubDate>
+      
+      <guid>https://djhworld.github.io/post/2019/05/21/i-dont-know-how-cpus-work-so-i-simulated-one-in-code/</guid>
+      <description>A few months ago it dawned on me that I didn&amp;rsquo;t really understand how computers work under the hood. I still don&amp;rsquo;t understand how modern computers work.
+However, after making my way through But How Do It Know? by J. Clark Scott, a book which describes the bits of a simple 8-bit computer from the NAND gates, through to the registers, RAM, bits of the CPU, ALU and I/O, I got a hankering to implement it in code.</description>
+    </item>
     
     <item>
       <title>Reed Solomon codes are cool</title>

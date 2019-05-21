@@ -1,0 +1,243 @@
+<!doctype html> 
+<html lang="en-gb"> 
+<head>
+  <meta charset="utf-8">
+
+   
+  <title>I don&#39;t know how CPUs work so I simulated one in code - djhworld</title>
+  
+
+   <meta name="author" content="">
+  <meta name="description" content="thoughts">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico">
+  
+  
+  <link rel="stylesheet" href="/style.css" />
+  
+   
+
+</head>
+
+<body class="">
+
+  
+
+  <div class="wrap">
+    <header class="mb">
+      <h1 class="h2 m-0"><a href="/" title="daniel harper">djhworld</a></h1>
+    <div id="navbar">
+      <a href="/">home</a>
+      <a href="/about">about</a>
+      <a href="/post/index.xml" type="application/rss+xml" target="_blank" title="never let rss die">rss</a>
+    </div>
+
+
+      <p class="site-description">thoughts</p>
+
+      <hr/>
+    </header>
+
+
+<main>
+<article class="post">
+  
+  <h1><a href="https://djhworld.github.io/post/2019/05/21/i-dont-know-how-cpus-work-so-i-simulated-one-in-code/" title="I don&#39;t know how CPUs work so I simulated one in code">I don&#39;t know how CPUs work so I simulated one in code</a></h1>
+  <p class="small gray">
+    <time datetime="2019-05-21">Tuesday, May 21, 2019</time>
+</p>
+  
+  
+
+<figure>
+<img src="/img/simple-computer/text-writer.gif" title="Hello World" style="margin-left:auto; margin-right:auto; display:block" />
+</figure>
+
+<p>A few months ago it dawned on me that I didn&rsquo;t really understand how computers work under the hood. I still don&rsquo;t understand how <em>modern</em> computers work.</p>
+
+<p>However, after making my way through <a href="http://buthowdoitknow.com/"><em>But How Do It Know?</em></a> by J. Clark Scott, a book which describes the bits of a simple 8-bit computer from the NAND gates, through to the registers, RAM, bits of the CPU, ALU and I/O, I got a hankering to implement it in code.</p>
+
+<p>While I&rsquo;m not <em>that</em> interested in the physics of the circuitry, the book just about skims the surface of those waters and gives a neat overview of the wiring and how bits move around the system without the requisite electrical engineering knowledge. For me though I can&rsquo;t get comfortable with book descriptions, I have to see things in action and learn from my inevitable mistakes, which led me to chart a course on the rough seas of writing a circuit in code and getting a bit weepy about it.</p>
+
+<p>The fruits of my voyage can be seen in <a href="https://github.com/djhworld/simple-computer">simple-computer</a>; a simple computer that&rsquo;s simple and computes things.</p>
+
+<figure>
+<a href="/img/simple-computer/ascii.png"><img src="/img/simple-computer/ascii1.png" title="ASCII" /></a>
+<a href="/img/simple-computer/brush.png"><img src="/img/simple-computer/brush1.png" title="brush" /></a>
+<a href="/img/simple-computer/text-writer.png"><img src="/img/simple-computer/text-writer1.png" title="doing the typesin'" /></a>
+<figcaption>
+<br/>
+Example programs 
+</figcaption>
+</figure>
+
+<p>It is quite a neat little thing, the CPU code is implemented <a href="https://github.com/djhworld/simple-computer/blob/master/cpu/cpu.go#L763">as a horrific splurge of gates turning on and off</a> but it works, I&rsquo;ve <a href="https://github.com/djhworld/simple-computer/blob/master/cpu/cpu_test.go">unit tested it</a>, and we all know unit tests are irrefutable proof that something works.</p>
+
+<p>It handles <a href="https://github.com/djhworld/simple-computer/blob/master/io/keyboard.go#L20">keyboard inputs</a>, and renders text <a href="https://github.com/djhworld/simple-computer/blob/master/io/display.go#L13">to a display</a> using a painstakingly crafted set of glyphs for a professional font I&rsquo;ve named &ldquo;Daniel Code Pro&rdquo;. The only cheat bit is to get the keyboard input and display output working I had to hook up go channels to speak to the outside world via <a href="https://github.com/djhworld/simple-computer/blob/master/cmd/simulator/glfw_io.go">GLFW</a>, but the rest of it is a simulated circuit.</p>
+
+<p>I even wrote a <a href="https://github.com/djhworld/simple-computer/blob/master/asm/assembler.go">crude assembler</a> which was eye opening to say the least. It&rsquo;s not perfect. Actually it&rsquo;s a bit crap, but it highlighted to me the problems that other people have already solved many, many years ago and I think I&rsquo;m a better person for it. Or worse, depending who you ask.</p>
+
+<h1 id="but-why-you-do-that">But why you do that?</h1>
+
+<blockquote>
+<p><center><em>&ldquo;I&rsquo;ve seen thirteen year old children do this in Minecraft, come back to me when you&rsquo;ve built a <u>REAL</u> CPU out of telegraph relays&rdquo;</em></center></p>
+</blockquote>
+
+<p>My mental model of computing is stuck in beginner computer science textbooks, and the CPU that powers the  <a href="https://github.com/djhworld/gomeboycolor">gameboy emulator I wrote back in 2013</a> is really nothing like the CPUs that are running today. Even saying that, the emulator is just a state machine, it doesn&rsquo;t describe the stuff at the logic gate level. You can implement most of it using just a <code>switch</code> statement and storing the state of the registers.</p>
+
+<p>So I&rsquo;m trying to get a better understanding of this stuff because I don&rsquo;t know what L1/L2 caches are, I don&rsquo;t know what pipelining means, I&rsquo;m not entirely sure I understand the Meltdown and Spectre vulnerability papers. Someone told me they were optimising their code to make use of CPU caches, I don&rsquo;t know how to verify that other than taking their word for it. I&rsquo;m not really sure what all the x86 instructions mean. I don&rsquo;t understand how people off-load work to a GPU or TPU. I don&rsquo;t know what a TPU is. I don&rsquo;t know how to make use of SIMD instructions.</p>
+
+<p>But all that is built on a foundation of knowledge you need to earn your stripes for, so I ain&rsquo;t gonna get there without reading the map first. Which means getting back to basics and getting my hands dirty with something simple. The &ldquo;Scott Computer&rdquo; described in the book is simple. That&rsquo;s the reason.</p>
+
+<h1 id="great-scott-it-s-alive">Great Scott! It&rsquo;s alive!</h1>
+
+<p>The Scott computer is an 8-bit processor attached to 256 bytes of RAM, all connected via an 8-bit system bus. It has 4 general purpose registers and can execute <a href="https://github.com/djhworld/simple-computer#instructions">17 machine instructions</a>. Someone built a visual simulator <a href="http://www.buthowdoitknow.com/but_how_do_it_know_cpu_model.html">for the web here</a>, which is really cool, I dread to think how long it took to track all the wiring states!</p>
+
+<figure>
+<a href="/img/simple-computer/scott-cpu.png"><img src="/img/simple-computer/scott-cpu.png" title="The Scott CPU" /></a>
+<figcaption>
+<br/>
+A diagram outlining all the components that make up the Scott CPU
+<br/>
+Copyright © 2009 - 2016 by Siegbert Filbinger and John Clark Scott.
+</figcaption>
+</figure>
+
+<p>The book takes you on a journey from the humble NAND gate, onto a Bit of memory, onto a register and then keeps layering on components until you end up with something resembling the above. I really recommend reading it, even if you are already familiar with the concepts because it&rsquo;s quite a good overview. I don&rsquo;t recommend the Kindle version though because the diagrams are sometimes hard to zoom in and decipher on a screen. A perennial problem for the Kindle in my experience.</p>
+
+<p>The only thing that&rsquo;s different about my computer is I upgraded it to 16-bit to have more memory to play with, as storing even just the glyphs for the <a href="https://github.com/djhworld/simple-computer/blob/master/_programs/ascii.asm#L27">ASCII table</a> would have dwarfed most of the 8-bit machine described in the book, with not much room left for useful code.</p>
+
+<h1 id="my-development-journey">My development journey</h1>
+
+<p>During development it really was just a case of reading the text, scouring the diagrams and then attempting to translate that using a general purpose programming language code and definitely <em>not</em> using something that&rsquo;s designed for integrated circuit development. The reason why I wrote it in Go, is well, I know a bit of Go. Naysayers might chime in and say, you blithering idiot! I can&rsquo;t believe you didn&rsquo;t spend all your time learning <a href="https://en.wikipedia.org/wiki/VHDL">VHDL</a> or <a href="https://en.wikipedia.org/wiki/Verilog">Verilog</a> or <a href="http://www.cburch.com/logisim/">LogSim</a> or whatever but I&rsquo;d already written my bits and bytes and NANDs by that point, I was in too deep. Maybe I&rsquo;ll learn them next and weep about my time wasted, but that&rsquo;s my cross to bear.</p>
+
+<p>In the grand scheme of things most of the computer is just passing around a bunch of booleans, so any boolean friendly language will do the job.</p>
+
+<p>Applying a schema to those booleans is what helps you (the programmer) derive its meaning, and the biggest decision anyone needs to make is decide what <a href="https://en.wikipedia.org/wiki/Endianness">endianness</a> your system is going to use and make sure all the components transfer things to and from the bus in the right order.</p>
+
+<p>This was an absolute pain in the backside to implement. From the offset I opted for little endian but when testing the ALU my hair took a beating trying to work out why the numbers were coming out wrong. Many, <em>many</em> print statements took place on this one.</p>
+
+<p>Development did take a while, maybe about a month or two during some of my free time, but once the CPU was done and successfully able to execute 2 + 2 = 5, I was happy.</p>
+
+<p>Well, until the book discussed the I/O features, with designs for a simple keyboard and display interface so you can get things in and out of the machine. <em>Well I&rsquo;ve already gotten this far</em>, no point in leaving it in a half finished state. I set myself a goal of being able to type something on a keyboard and render the letters on a display.</p>
+
+<h1 id="peripherals">Peripherals</h1>
+
+<p>The peripherals use the <a href="https://en.wikipedia.org/wiki/Adapter_pattern">adapter pattern</a> to act as a hardware interface between the CPU and the outside world. It&rsquo;s probably not a huge leap to guess this was what the software design pattern took inspiration from.</p>
+
+<figure>
+<img src="/img/simple-computer/io.png" title="i couldn't be bothered to do the corners around the CPU for the system bus" style="margin-left:auto; margin-right:auto; display:block" />
+<figcaption>
+<br/>
+How the I/O adapters connect to a GLFW window
+</figcaption>
+</figure>
+
+<p>With this separation of concerns it was actually pretty simple to hook the other end of the keyboard and display to a window managed by GLFW. In fact I just pulled most of the code from my <a href="https://github.com/djhworld/gomeboycolor-glfw">emulator</a> and reshaped it a bit, using go channels to act as the signals in and out of the machine.</p>
+
+<h1 id="bringing-it-to-life">Bringing it to life</h1>
+
+<figure>
+<img src="/img/simple-computer/brush.gif" title="brush.bin" style="margin-left:auto; margin-right:auto; display:block" />
+</figure>
+
+<p>This was probably the most tricky part, or at least the most cumbersome. Writing assembly with such a limited instruction set sucks. Writing assembly using a crude assembler I wrote sucks even more because you can&rsquo;t shake your fist at someone other than yourself.</p>
+
+<p>The biggest problem was juggling the 4 registers and keeping track of them, pulling and putting stuff in memory as a temporary store. Whilst doing this I remembered the Gameboy CPU having a stack pointer register so you could push and pop state. Unfortunately this computer doesn&rsquo;t have such a luxury, so I was mostly moving stuff in and out of memory on a bespoke basis.</p>
+
+<p>The only pseudo instruction I took the time to implement was <code>CALL</code> to help calling functions, this allows you to run a function and then return to the point after the function was called. Without that stack though you can only call one level deep.</p>
+
+<p>Also as the machine does not support interrupts, you have to implement awful polling code for functions like getting keyboard state. The book does discuss the steps needed to implement interrupts, but it would involve a lot more wiring.</p>
+
+<p>But anyway enough of the moaning, I ended up writing <a href="https://github.com/djhworld/simple-computer/blob/master/_programs/README.md">four programs</a> and most of them make use of some shared code for drawing fonts, getting keyboard input etc. Not exactly operating system material but it did make me appreciate some of the services a simple operating system might provide.</p>
+
+<p>It wasn&rsquo;t easy though, the trickiest part of the text-writer program was getting the maths right to work out when to go to a newline, or what happens when you hit the enter key.</p>
+
+<figure>
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-asm" data-lang="asm"><span style="color:#002070;font-weight:bold">main-getInput:</span>
+	<span style="color:#06287e">CALL</span> <span style="color:#60add5">ROUTINE-io-pollKeyboard</span>
+	<span style="color:#06287e">CALL</span> <span style="color:#60add5">ROUTINE-io-drawFontCharacter</span>
+	<span style="color:#06287e">JMP</span> <span style="color:#60add5">main-getInput</span></code></pre></div>
+<figcaption>The main loop for the text-writer program</figcaption>
+</figure>
+
+<p>I didn&rsquo;t get round to implementing the backspace key either, or any of the modifier keys. Made me appreciate how much work must go in to making text editors and how tedious that probably is.</p>
+
+<h1 id="on-reflection">On reflection</h1>
+
+<p>This was a fun and very rewarding project for me. In the midst of programming in the assembly language I&rsquo;d largely forgotten about the NAND, AND and OR gates firing underneath. I&rsquo;d ascended into the layers of abstraction above.</p>
+
+<p>While the CPU in the is very simple and a long way from what&rsquo;s sitting in my laptop, I think this project has taught me a lot, namely:</p>
+
+<ul>
+<li>How bits move around  between all components using a bus</li>
+<li>How a <em>simple</em> ALU works</li>
+<li>What a <em>simple</em> Fetch-Decode-Execute cycle looks like</li>
+<li>That a machine without a stack pointer register + concept of a stack sucks</li>
+<li>That a machine without interrupts sucks</li>
+<li>What an assembler is and does</li>
+<li>How a peripherals communicate with a simple CPU</li>
+<li>How <em>simple</em> fonts work and an approach to rendering them on a display</li>
+<li>What a <em>simple</em> operating system might start to look like</li>
+</ul>
+
+<p>So what&rsquo;s next? The book said that no-one has built a computer like this since 1952, meaning I&rsquo;ve got 67 years of material to brush up on, so that should keep me occupied for a while. I see the <a href="https://software.intel.com/sites/default/files/managed/39/c5/325462-sdm-vol-1-2abcd-3abcd.pdf">x86 manual is 4800 pages long</a>, enough for some fun, light reading at bedtime.</p>
+
+<p>Maybe I&rsquo;ll have a brief dalliance with operating system stuff, a flirtation with the C language, a regrettable evening attempting to <a href="https://obsolescence.wixsite.com/obsolescence/pidp-11">solder up a PiDP-11 kit</a> then probably call it quits. I dunno, we&rsquo;ll see.</p>
+
+<p>With all seriousness though I think I&rsquo;m going to start looking into RISC based stuff next, maybe RISC-V, but probably start with early RISC processors to get an understanding of the lineage. Modern CPUs have a lot more features like caches and stuff so I want to understand them as well. A lot of stuff out there to learn.</p>
+
+<p>Do I need to know any of this stuff in my day job? Probably helps, but not really, but I&rsquo;m enjoying it, so whatever, thanks for reading xxxx</p>
+
+</article>
+</main>
+
+
+
+
+<script>
+    var _me = new Image(1, 1);
+    _me.src = "https://d1lcmkb9w8fvni.cloudfront.net/me.png?u=" +
+      encodeURIComponent(window.location.pathname) +
+      (document.referrer ? "&r=" + encodeURIComponent(document.referrer)
+                         : "");
+</script>
+<noscript>
+  <img src="https://d1lcmkb9w8fvni.cloudfront.net/me.png?u=https%3a%2f%2fdjhworld.github.io%2fpost%2f2019%2f05%2f21%2fi-dont-know-how-cpus-work-so-i-simulated-one-in-code%2f" />
+</noscript>
+
+
+
+
+  <div id="disqus_thread"></div>
+  <script>
+
+  
+
+  var disqus_config = function () {
+  this.page.url = "https://djhworld.github.io/post/2019/05/21/i-dont-know-how-cpus-work-so-i-simulated-one-in-code/";
+  this.page.identifier = "7eed9369966ae4c1a589e8570df181b0";
+  };
+
+  (function() { 
+  var d = document, s = d.createElement('script');
+  s.src = 'https://djhworld.disqus.com/embed.js';
+  s.setAttribute('data-timestamp', +new Date());
+  (d.head || d.body).appendChild(s);
+  })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+ 
+
+</div>
+
+
+
+
+
+</body>
+</html>
+
