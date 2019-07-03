@@ -6,10 +6,34 @@
     <description>Recent content on djhworld</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-gb</language>
-    <lastBuildDate>Tue, 21 May 2019 09:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 01 Jul 2019 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://djhworld.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>CV</title>
+      <link>https://djhworld.github.io/cv/</link>
+      <pubDate>Mon, 01 Jul 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://djhworld.github.io/cv/</guid>
+      <description>Daniel James Harper Enthusiastic, passionate developer with 10 years of software development experience in enterprise and personal projects, including data engineering and web applications. I am seeking a role in a creative, forward thinking company that offers personal development and challenging work.
+
+Experience  Senior Software Engineer, BBC June 2018 - PresentLondon, UK
+Main responsibilities Developing and maintaining &amp;ldquo;big data&amp;rdquo; analytics systems that help the BBC manage costs and deliver the best experiences to the iPlayer consuming public.</description>
+    </item>
+    
+    <item>
+      <title>Medium</title>
+      <link>https://djhworld.github.io/medium/</link>
+      <pubDate>Mon, 01 Jul 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://djhworld.github.io/medium/</guid>
+      <description>I sometimes write on medium.com/@djhworld
+Why? Most of my blog posts on this website are technical, I felt a bit weird posting stuff like my travel blogs and bombarding people&amp;rsquo;s RSS feeds with stuff they might not be interested in.
+Github for tech stuff, Medium for other stuff that&amp;rsquo;s the general rule of thumb, although I do sometimes syndicate my blog posts from here too.
+Mainly because right now Medium does have a good sense of community and content curation.</description>
+    </item>
     
     <item>
       <title>I don&#39;t know how CPUs work so I simulated one in code</title>
@@ -80,8 +104,10 @@ In an attempt to kick the tires of the new runtime, I found myself rummaging aro
       <pubDate>Wed, 24 Jan 2018 20:32:47 +0000</pubDate>
       
       <guid>https://djhworld.github.io/about/</guid>
-      <description> daniel harper senior software engineer @ BBC
- keybase: keybase.io/djhworld twitter: @djhworld code: github/djhworld irc/freenode: djhworld  projects  caniaffordtobuy.co.uk  interests  video games data engineering tinkering with raspberry pis personal finance fiction films with bill murray in them  work  2018 - &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Senior Software Engineer @ BBC 2014 - 2018&amp;nbsp;&amp;nbsp;Software Engineer @ BBC 2010 - 2014&amp;nbsp;&amp;nbsp;Applications Developer @ Sony Computer Entertainment Europe 2008 - 2010 Applications Developer @ Atos Origin  this website  statically generated using hugo  theme: heather-hugo (tweaked)   </description>
+      <description> I sometimes write and repost stuff from here on Medium, see here for my reasons for this.
+ keybase: keybase.io/djhworld twitter: @djhworld code: github/djhworld  You can sometimes find me on the gophers slack organisation (@djh)
+work You can find my my CV here.
+projects  caniaffordtobuy.co.uk  interests  video games computer science data engineering tinkering with raspberry pis personal finance fiction  this website  statically generated using hugo  theme: heather-hugo (tweaked)   </description>
     </item>
     
     <item>
