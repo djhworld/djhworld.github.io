@@ -1,0 +1,301 @@
+<!doctype html>
+<html lang="en-gb">
+
+<head>
+  <meta charset="utf-8">
+
+  
+  <title>Running Linux on my Macbook - djhworld</title>
+  
+
+  <meta name="author" content="">
+  <meta name="description" content="thoughts">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico">
+
+  
+  <link rel="stylesheet" href="/style.css" />
+  
+  
+
+</head>
+
+<body class="">
+
+  
+
+  <div class="wrap">
+    <header class="mb">
+      <h1 class="h2 m-0"><a href="/" title="daniel harper">djhworld</a></h1>
+      <div id="navbar">
+        <a title="home" href="/">home</a>
+        <a title="about" href="/about">about</a>
+        <a title="other writing on medium.com" href="/medium">medium</a>
+        <a title="CV" href="/cv">cv</a>
+        <a href="/post/index.xml" type="application/rss+xml" target="_blank" title="rss feed">rss</a>
+      </div>
+
+
+      <p class="site-description">thoughts</p>
+
+      <hr />
+    </header>
+
+<main>
+<article class="post">
+  
+  <h1><a href="https://djhworld.github.io/post/2020/06/07/running-linux-on-my-macbook/" title="Running Linux on my Macbook">Running Linux on my Macbook</a></h1>
+  <p class="small gray">
+    <time datetime="2020-06-07">Sunday, June 7, 2020</time>
+</p>
+  
+  
+
+<figure>
+<a href="/img/desktop.png"><img src="/img/desktop.png" title="Obligatory desktop background shot. Not really material for /r/unixporn but it's mine." /></a>
+<figcaption><br/>Obligatory desktop shot with nothing on it</figcaption>
+</figure>
+
+<p>This is another one of those posts, the one&rsquo;s where Linux desktop apologists have the urge to justify to the world why they do things.</p>
+
+<p>So here we go, a few weeks ago I installed Fedora 32 on my Macbook Pro (early 2015 model). In this post I hope to document the pitfalls, traps and joyous moments I found along the way, complete with the annoyances that I&rsquo;ve come to tolerate.</p>
+
+<p>I&rsquo;ll preface this post by saying most of the issues encountered are down to the minimalist nature of the setup I&rsquo;ve gone with. So don&rsquo;t take this as a reflection on Fedora/Linux, I suspect the defaults with GNOME come with a lot less footguns.</p>
+
+<h2 id="rationale">Rationale</h2>
+
+<p>The main reason for the switch was one killer app; the <a href="https://i3wm.org/">i3 window manager</a>. Keyboard shortcuts, tiled windows, lightning fast to use - it feels like a piece of software designed for people who tinker and use computers a lot.</p>
+
+<p>Since installing I&rsquo;ve tweaked my configuration to</p>
+
+<ul>
+<li>Take screenshots with keyboard shortcuts similar to OSX using <a href="https://github.com/naelstrof/maim">maim</a></li>
+<li>Always open my web browser on workspace 1</li>
+<li>Remove title bars</li>
+</ul>
+
+<figure>
+<a href="/img/scratchpad.png"><img src="/img/scratchpad.png" title="I wrote my own note taking software because I've never been happy with any of the solutions out there. It uses SQLite and renders markdown with LaTeX support and full text search. The scratchpad feature of i3wm makes note taking a breeze. I wrote my own FUSE backed filesystem that mounts the notes to my machine for editing and syncs them back to the server." /></a>
+<figcaption><br/>The scratchpad window makes note taking a joy</figcaption>
+</figure>
+
+<p>..and it&rsquo;s generally been a joy to use. My favourite feature is the &ldquo;scratchpad&rdquo; where you can bring up and dismiss a window in the same workspace via a keyboard shortcut. This has been an absolute blast with some custom note taking software I wrote, which I mount via FUSE. Writing notes is a joy because the context switch is minimal.</p>
+
+<h2 id="software">Software</h2>
+
+<p>The meteoric rise of the web browser as a platform has made me realise that I don&rsquo;t really use that much native GUI software anymore. All I seemed to use on OSX was a web browser, Visual Studio Code and a terminal with lots of CLI/TUI software configured via a set of <a href="https://wiki.archlinux.org/index.php/Dotfiles">dotfiles</a>.</p>
+
+<p>I&rsquo;m a huge gamer at heart but I&rsquo;m fortunate enough to own a beefy gaming PC and a set of consoles to meet that need, so I can&rsquo;t really comment on Linux support on that side of things.</p>
+
+<p>So switching OS&rsquo;s isn&rsquo;t really that much of a barrier for most of my use cases.</p>
+
+<h2 id="installation">Installation</h2>
+
+<p>Installation was a bit of anxiety inducing to start with, for one thing I didn&rsquo;t want to screw up the boot partition of my Mac just in case things went a bit wrong and it took a while to search about ways to do this cleanly.</p>
+
+<p>Thankfully <a href="https://alex.dzyoba.com/blog/macbook-air-linux/">Alex Dzyoba</a> wrote an excellent article on creating the appropriate partitions for dual booting.</p>
+
+<p>Once that was done it mostly just seemed to work. Wi-Fi worked, sound worked, so I installed i3, applied my dotfiles and got going.</p>
+
+<h2 id="keyboard-woes">Keyboard woes</h2>
+
+<p>The first issue I encountered was trying to get the keyboard settings to work with the Macbook layout, especially on a GB localised keyboard and tuning it to recognise that I like Caps Lock and Ctrl to be switched.</p>
+
+<p>This was solved with <code>setxkbmap</code> which you have to run on login:</p>
+
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">setxkbmap -layout gb -model apple_laptop -variant mac -option <span style="color:#4070a0">&#34;ctrl:swapcaps&#34;</span></code></pre></div>
+
+<p>Additionally, sometimes I throw my laptop onto a desk and plug it into an external keyboard (not Apple branded) and this also needs additional tuning when I plug it in as the alt/windows keys are swapped for some reason.</p>
+
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">setxkbmap -layout gb -model apple_laptop -variant mac <span style="color:#4070a0;font-weight:bold">\ </span>
+-option <span style="color:#4070a0">&#34;altwin:swap_lalt_lwin&#34;</span> -option <span style="color:#4070a0">&#34;ctrl:swapcaps&#34;</span></code></pre></div>
+
+<p>This took a while to reach those settings but I&rsquo;m happy with them.</p>
+
+<h3 id="the-copy-and-paste-problem">The copy and paste problem</h3>
+
+<p>Moving from OSX to Linux means throwing away 10 years of muscle memory on keyboard shortcuts. Cmd+C, Cmd+V for clipboard just won&rsquo;t work without <a href="https://github.com/rbreaves/kinto">a lot of tinkering</a> that just didn&rsquo;t seem worth the effort to me. Pull off the band aid instead, it&rsquo;s got to happen some time.</p>
+
+<p>So I&rsquo;ve had to train myself to go back to using Ctrl as the modifier key, which was tricky at first but it&rsquo;s amazing how quickly I&rsquo;ve adapted. The annoying part is having to remember to hit the Shift key when copying/pasting into terminals.</p>
+
+<h2 id="displays">Displays</h2>
+
+<p>As mentioned previously I often plug in my laptop to an external monitor and like the keyboard tweaking, this took a lot of effort. For one, I position my laptop <em>below</em> my external monitor so like the layout to be above/below. It took me ages to try and find the decent <code>xrandr</code> settings to support this. Every time I tried the monitor above bled into the laptop screen below.</p>
+
+<p>Eventually I found the excellent tool <code>arandr</code> which presents a GUI interface to generate the appropriate settings.</p>
+
+<figure>
+<a href="/img/arandr.png"><img src="/img/arandr.png" title="arandr saves the day" /></a>
+<figcaption><br/>arandr</figcaption>
+</figure>
+
+<p>Unfortunately I&rsquo;ve not found a way of automatically applying these settings when unplugging/plugging the monitor so I&rsquo;ve had to write a script to run when switching (which also includes the <code>setxkbmap</code> settings described above)</p>
+
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">xrandr --output eDP1 --primary --mode 2560x1600 --pos 640x2400 <span style="color:#4070a0;font-weight:bold">\
+</span><span style="color:#4070a0;font-weight:bold"></span>--rotate normal --output DP1 --scale 2x2 --mode 1920x1200 --pos 0x0 <span style="color:#4070a0;font-weight:bold">\
+</span><span style="color:#4070a0;font-weight:bold"></span>--rotate normal </code></pre></div>
+
+<h3 id="retina">Retina</h3>
+
+<p>To get everything scaling nicely on the laptop took a bit of effort but thankfully <a href="https://dougie.io/linux/hidpi-retina-i3wm/">Doug Beney</a> wrote a decent guide which was simple to implement.</p>
+
+<h3 id="brightness-tuning">Brightness tuning</h3>
+
+<p>It&rsquo;s easy to take for granted something as simple as changing the brightness on your screen, but it took me a while to figure this out. Thankfully using the guidance in this <a href="https://askubuntu.com/questions/715306/xbacklight-no-outputs-have-backlight-property-no-sys-class-backlight-folder">askubuntu post</a> and setting some i3wm config settings, I was able to make the brightness keys work roughly the way you would expect.</p>
+
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#60a0b0;font-style:italic"># Screen brightness controls</span>
+bindsym XF86MonBrightnessUp <span style="color:#007020">exec</span> xbacklight -inc <span style="color:#40a070">5</span>
+bindsym XF86MonBrightnessDown <span style="color:#007020">exec</span> xbacklight -dec <span style="color:#40a070">5</span></code></pre></div>
+
+<h2 id="please-just-go-to-sleep">Please just go to sleep</h2>
+
+<p>Closing the lid on the laptop should suspend the OS but this just never seemed to work, I’d often find my machine in a state of hot panic the next morning with 30 minutes of battery left.</p>
+
+<p>To solve this, thanks to an excellent post by <a href="https://joshtronic.com/2017/03/13/getting-suspend-in-linux-working-on-a-macbook-pro/">Josh Sherman</a>, you need to prevent the USB controller from waking up the system.</p>
+
+<p>Unfortunately you need to apply this setting every time you boot so I wrote a <a href="https://gist.github.com/djhworld/734fd6fc36768ecff639cd2d6c656f5a">systemd service and script to enable this</a>.</p>
+
+<h2 id="farewell-firefox">Farewell Firefox</h2>
+
+<p>This is probably the most depressing part of switching. I&rsquo;ve been a long time Firefox fan, especially with extensions like <a href="https://addons.mozilla.org/en-GB/firefox/addon/tree-style-tab/">Tree Style Tabs</a> that acted as an enabler for my tab hoarding vices.</p>
+
+<p>Unfortunately on Linux it&rsquo;s just been dogshit, absolute dogshit. Slow, takes ages to start, websites render in really slowly, switching between tabs feels so lethargic it&rsquo;s like the fire in the fox has gone out.</p>
+
+<p>I&rsquo;ve tried everything to fix it, changing things in <code>about:config</code>, trying  Firefox Nightly and enabling WebRender but nothing seemed to be working.</p>
+
+<p>In contrast Google Chrome is <em>lightning fast</em>, it really is night and day, so for my Linux forays sadly I&rsquo;ve had to go with the big G for now.</p>
+
+<h2 id="other-tools-and-things-i-ve-setup">Other tools and things I&rsquo;ve setup</h2>
+
+<ul>
+<li><a href="https://github.com/alacritty/alacritty">alacritty</a> for my terminal, very slick, fast and has great font rendering.</li>
+<li><a href="http://jonls.dk/redshift/">redshift</a> which acts like <a href="https://justgetflux.com/news/pages/macquickstart/">f.lux</a> for OSX, meaning my eyes don&rsquo;t get burnt at night.</li>
+<li><a href="https://www.dropbox.com/en_GB/install-linux">Dropbox</a> was very easy to set up, especially when adding a systemd service (thanks to <a href="https://github.com/joeroback/dropbox">Joe Roback</a>)</li>
+<li><a href="https://code.visualstudio.com/docs/setup/linux">Visual Studio Code</a> - unsurprisingly no problems there.</li>
+<li><a href="https://www.gimp.org/">GIMP</a> - works fine for screenshot editing, if a little cumbersome</li>
+</ul>
+
+<h2 id="joys">Joys</h2>
+
+<p>After getting everything working the way I like it, it all kinda just works?</p>
+
+<h3 id="i3wm">i3wm</h3>
+
+<p>i3wm is a blast to use, switching between workspaces, moving windows and getting used to the tiling has been a little bit of a learning curve but it&rsquo;s meant I&rsquo;m using my mouse much less.</p>
+
+<p>The additional benefit is just how <em>fast</em> everything feels, it might just be a matter of perception but sometimes perceptions matter.</p>
+
+<figure>
+<a href="/img/editing-blog.png"><img src="/img/editing-blog.png" title="Site is rendered using Hugo and edited with vim" /></a>
+<figcaption><br/>Me writing this blog post</figcaption>
+</figure>
+
+<p><strong>Note</strong>: I&rsquo;m aware of <a href="https://swaywm.org/">swaywm</a> that is config compatible with i3 and runs on Wayland. I&rsquo;ve tried this out and it seems neat, and it would probably solve the keyboard/monitor issues described above, but on my Retina display Chrome just looks really blurry. I&rsquo;m guessing because <a href="https://github.com/swaywm/sway/issues/1481">it&rsquo;s rendered via XWayland</a>, once that&rsquo;s resolved I&rsquo;ll look into making the switch.</p>
+
+<h3 id="systemd">systemd</h3>
+
+<p>Systemd gets a lot of flak in the community but I really, really like it. I&rsquo;ve already written a few services of my own that perform tasks or run software, installed under <code>.config/systemd/user</code> and they were trivial to write.</p>
+
+<p>Getting used to the tooling has been a hill to climb but it feels so much better than the old days of <code>init.d</code> scripts.</p>
+
+<h3 id="dnf">DNF</h3>
+
+<p>I use Fedora on other machines in headless mode so I&rsquo;m fairly used to the tooling, but it&rsquo;s nice to have a decent package manager that generally keeps everything up to date. Homebrew on OSX is a heroic effort, but it&rsquo;s just not the same.</p>
+
+<h2 id="annoyances">Annoyances</h2>
+
+<h3 id="wifi-sometimes-drops">WiFi sometimes drops</h3>
+
+<p>I&rsquo;ve not been able to figure this one out, but maybe once or twice a week the WiFi driver will just stop working. To fix it I have to issue a command to reload the kernel module.</p>
+
+<div class="highlight"><pre style="background-color:#f0f0f0;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo modprobe -r brcmfmac <span style="color:#666">&amp;&amp;</span> sudo modprobe brcmfmac</code></pre></div>
+
+<h3 id="webcam">Webcam</h3>
+
+<p>I do sometimes use Skype and Zoom to communicate with family members but the webcam doesn&rsquo;t work out of the box, it looks like there is a <a href="https://github.com/patjak/bcwc_pcie">reverse engineering effort going on</a> to remedy this, but I&rsquo;ve found my iPad works as a decent video calling device, so I&rsquo;ve not gotten around to fixing it.</p>
+
+<h3 id="browser-hardware-video-acceleration">Browser hardware video acceleration</h3>
+
+<p>Web browsers in Linux straight up do not support GPU video acceleration. This became apparent to me when investigating why my laptop was panting, expelling enough heat to cook an egg while watching a YouTube video about&hellip;cooking eggs.</p>
+
+<p>Apparently there is a <a href="https://wiki.archlinux.org/index.php/Chromium#Hardware_video_acceleration">patched version of Chromium</a> out there that supposedly supports it but for the time being it doesn&rsquo;t look like the <a href="https://www.omgubuntu.co.uk/2018/10/hardware-acceleration-chrome-linux">browser vendors see this a top priority</a>. It&rsquo;s a shame but oh well.</p>
+
+<p>Installing VLC and the intel driver works though, so that will have to do.</p>
+
+<h3 id="osx-linux-differences">OSX/Linux differences</h3>
+
+<p>There are a few things I immediately missed from the OSX world, but there mostly appear to be Linux equivalents or workarounds.</p>
+
+<ul>
+<li><strong>Screenshot editing:</strong> On OSX it&rsquo;s nice to take a screenshot then immediately jump into the in-built editor to add annotations and adjustments. This can be somewhat replicated with maim+GIMP.</li>
+<li><strong>pbcopy/pbpaste:</strong> these are command-line tools to interact with the clipboard. The linux equivalent is <code>xclip</code></li>
+<li><strong>Spotlight/Alfred:</strong> I only really used these as a quick calculator, and never made that much use of the file searching features. Firing up a terminal (Alt+Enter) and using <code>bc</code> seems to be a reasonable equivalent. I might see about binding this to a hotkey.</li>
+<li><strong>Notifications:</strong> Setting up <a href="https://dunst-project.org/">dunst</a> offers good enough desktop notification support.</li>
+<li><strong>Airdrop:</strong> Very infrequently I would use this to send things to my iPad - I&rsquo;ve not found a suitable solution for this yet.</li>
+<li><strong>1Password:</strong> This really hasn&rsquo;t been an issue as <a href="https://1password.com/downloads/linux/">1PasswordX</a> works fine, if anything, I think it&rsquo;s better!</li>
+</ul>
+
+<h2 id="work">Work</h2>
+
+<p>Switching to Linux in my home life suddenly presents a problem at work. The cognitive overhead of alternating between different keyboard shortcuts on different OS&rsquo;s didn&rsquo;t seem very appealing, along with the fact that I just knew I&rsquo;d miss i3.</p>
+
+<p>So to workaround this I use a virtual machine via VMware Fusion which works surprisingly well. A little too well, it feels almost native! My work machine is a MBP 2019 with 6 cores and 32GB of RAM, so it&rsquo;s more than capable.</p>
+
+<h2 id="overall">Overall</h2>
+
+<p>There are always compromises to be had, whether it be Firefox performance, lack of HW video decoding in the browser and having to tweak a few things, but overall it&rsquo;s been a mostly positive experience to switch. I&rsquo;ll admit that a lot of the issues I came across were of my own making, but it&rsquo;s been worth it.</p>
+
+<p>I&rsquo;ve really not missed OSX that much, in fact it&rsquo;s probably sealed my decision to not go with Apple next time round. The hardware is excellent, but getting Linux <a href="https://github.com/Dunedan/mbp-2016-linux">running on Macbook models &gt;= 2016</a> sounds like an exercise in sadness so it might be the end of the road for Apple laptops in my house.</p>
+
+</article>
+</main>
+
+
+
+
+<script>
+    var _me = new Image(1, 1);
+    _me.src = "https://d1lcmkb9w8fvni.cloudfront.net/me.png?u=" +
+      encodeURIComponent(window.location.pathname) +
+      (document.referrer ? "&r=" + encodeURIComponent(document.referrer)
+                         : "");
+</script>
+<noscript>
+  <img src="https://d1lcmkb9w8fvni.cloudfront.net/me.png?u=https%3a%2f%2fdjhworld.github.io%2fpost%2f2020%2f06%2f07%2frunning-linux-on-my-macbook%2f" />
+</noscript>
+
+
+
+
+  <div id="disqus_thread"></div>
+  <script>
+
+  
+
+  var disqus_config = function () {
+  this.page.url = "https://djhworld.github.io/post/2020/06/07/running-linux-on-my-macbook/";
+  this.page.identifier = "69f7430050f22b8a1c8cdbb26227f85d";
+  };
+
+  (function() { 
+  var d = document, s = d.createElement('script');
+  s.src = 'https://djhworld.disqus.com/embed.js';
+  s.setAttribute('data-timestamp', +new Date());
+  (d.head || d.body).appendChild(s);
+  })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+ 
+
+</div>
+
+
+
+
+
+</body>
+</html>
+
