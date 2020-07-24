@@ -2,12 +2,12 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Categories on djhworld</title>
-    <link>https://djhworld.github.io/categories/</link>
+    <link>https://djharper.dev/categories/</link>
     <description>Recent content in Categories on djhworld</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-gb</language>
     
-	<atom:link href="https://djhworld.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://djharper.dev/categories/index.xml" rel="self" type="application/rss+xml" />
     
     
   </channel>

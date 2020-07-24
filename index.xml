@@ -2,31 +2,31 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>djhworld</title>
-    <link>https://djhworld.github.io/</link>
+    <link>https://djharper.dev/</link>
     <description>Recent content on djhworld</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-gb</language>
     <lastBuildDate>Sun, 07 Jun 2020 09:00:00 +0000</lastBuildDate>
     
-	<atom:link href="https://djhworld.github.io/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://djharper.dev/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Running Linux on my Macbook</title>
-      <link>https://djhworld.github.io/post/2020/06/07/running-linux-on-my-macbook/</link>
+      <link>https://djharper.dev/post/2020/06/07/running-linux-on-my-macbook/</link>
       <pubDate>Sun, 07 Jun 2020 09:00:00 +0000</pubDate>
       
-      <guid>https://djhworld.github.io/post/2020/06/07/running-linux-on-my-macbook/</guid>
+      <guid>https://djharper.dev/post/2020/06/07/running-linux-on-my-macbook/</guid>
       <description>Obligatory desktop shot with nothing on it  This is another one of those posts, the one&amp;rsquo;s where Linux desktop apologists have the urge to justify to the world why they do things.
 So here we go, a few weeks ago I installed Fedora 32 on my Macbook Pro (early 2015 model). In this post I hope to document the pitfalls, traps and joyous moments I found along the way, complete with the annoyances that I&amp;rsquo;ve come to tolerate.</description>
     </item>
     
     <item>
       <title>CV</title>
-      <link>https://djhworld.github.io/cv/</link>
+      <link>https://djharper.dev/cv/</link>
       <pubDate>Mon, 01 Jul 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://djhworld.github.io/cv/</guid>
+      <guid>https://djharper.dev/cv/</guid>
       <description>Daniel James Harper Enthusiastic, passionate developer with 11 years of software development experience in enterprise and personal projects, including data engineering and web applications. I am seeking a role in a creative, forward thinking company that offers personal development and challenging work.
 
 Experience  Software Engineer, Cloudflare March 2020 - London, UK
@@ -37,10 +37,10 @@ Main responsibilities Developing and maintaining &amp;ldquo;big data&amp;rdquo; 
     
     <item>
       <title>Medium</title>
-      <link>https://djhworld.github.io/medium/</link>
+      <link>https://djharper.dev/medium/</link>
       <pubDate>Mon, 01 Jul 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://djhworld.github.io/medium/</guid>
+      <guid>https://djharper.dev/medium/</guid>
       <description>I sometimes write on medium.com/@djhworld
 Why? Most of my blog posts on this website are technical, I felt a bit weird posting stuff like my travel blogs and bombarding people&amp;rsquo;s RSS feeds with stuff they might not be interested in.
 Github for tech stuff, Medium for other stuff that&amp;rsquo;s the general rule of thumb, although I do sometimes syndicate my blog posts from here too.
@@ -49,20 +49,20 @@ Mainly because right now Medium does have a good sense of community and content 
     
     <item>
       <title>I don&#39;t know how CPUs work so I simulated one in code</title>
-      <link>https://djhworld.github.io/post/2019/05/21/i-dont-know-how-cpus-work-so-i-simulated-one-in-code/</link>
+      <link>https://djharper.dev/post/2019/05/21/i-dont-know-how-cpus-work-so-i-simulated-one-in-code/</link>
       <pubDate>Tue, 21 May 2019 09:00:00 +0000</pubDate>
       
-      <guid>https://djhworld.github.io/post/2019/05/21/i-dont-know-how-cpus-work-so-i-simulated-one-in-code/</guid>
+      <guid>https://djharper.dev/post/2019/05/21/i-dont-know-how-cpus-work-so-i-simulated-one-in-code/</guid>
       <description>A few months ago it dawned on me that I didn&amp;rsquo;t really understand how computers work under the hood. I still don&amp;rsquo;t understand how modern computers work.
 However, after making my way through But How Do It Know? by J. Clark Scott, a book which describes the bits of a simple 8-bit computer from the NAND gates, through to the registers, RAM, bits of the CPU, ALU and I/O, I got a hankering to implement it in code.</description>
     </item>
     
     <item>
       <title>Reed Solomon codes are cool</title>
-      <link>https://djhworld.github.io/post/2019/02/24/reed-solomon-codes-are-cool/</link>
+      <link>https://djharper.dev/post/2019/02/24/reed-solomon-codes-are-cool/</link>
       <pubDate>Sun, 24 Feb 2019 09:00:00 +0000</pubDate>
       
-      <guid>https://djhworld.github.io/post/2019/02/24/reed-solomon-codes-are-cool/</guid>
+      <guid>https://djharper.dev/post/2019/02/24/reed-solomon-codes-are-cool/</guid>
       <description>Imagine wending your way through a great book on your e-reader, the world melting away, and suddenly everything comes crashing back to reality with an apologetic Sorry! Chapter 20 corrupted! message.
 A few tired cells of the flash storage gave up the ghost overnight and corrupted your book.
 Wouldn&amp;rsquo;t it be great if your device didn&amp;rsquo;t complain about its innards, and recovered from the problem itself?</description>
@@ -70,10 +70,10 @@ Wouldn&amp;rsquo;t it be great if your device didn&amp;rsquo;t complain about it
     
     <item>
       <title>I ported my Gameboy Color emulator to WebAssembly</title>
-      <link>https://djhworld.github.io/post/2018/09/21/i-ported-my-gameboy-color-emulator-to-webassembly/</link>
+      <link>https://djharper.dev/post/2018/09/21/i-ported-my-gameboy-color-emulator-to-webassembly/</link>
       <pubDate>Fri, 21 Sep 2018 09:00:00 +0000</pubDate>
       
-      <guid>https://djhworld.github.io/post/2018/09/21/i-ported-my-gameboy-color-emulator-to-webassembly/</guid>
+      <guid>https://djharper.dev/post/2018/09/21/i-ported-my-gameboy-color-emulator-to-webassembly/</guid>
       <description>Around five years ago I wrote a Gameboy Color emulator in Go. It was a very frustrating, but rewarding experience that I&amp;rsquo;ve been dining out on in job interviews ever since.
 However, as the passage of time progressed, it landed on the pile of mostly-done-but-not-finished projects and left largely abandoned. One might generously say, on hiatus. Well, until very recently that is.
   That 5 year gap   You see, a few weeks ago Go 1.</description>
@@ -81,10 +81,10 @@ However, as the passage of time progressed, it landed on the pile of mostly-done
     
     <item>
       <title>I thought I found a browser security bug</title>
-      <link>https://djhworld.github.io/post/2018/08/12/i-thought-i-found-a-browser-security-bug/</link>
+      <link>https://djharper.dev/post/2018/08/12/i-thought-i-found-a-browser-security-bug/</link>
       <pubDate>Sun, 12 Aug 2018 09:00:00 +0000</pubDate>
       
-      <guid>https://djhworld.github.io/post/2018/08/12/i-thought-i-found-a-browser-security-bug/</guid>
+      <guid>https://djharper.dev/post/2018/08/12/i-thought-i-found-a-browser-security-bug/</guid>
       <description>A few weeks ago I thought I&amp;rsquo;d stumbled across something really bad when just casually browsing the web. It all started on a financial information website, upon clicking a link, the page partially loaded some of its content, then, without warning, redirected the browser to a completely different domain with some weird spam/search engine content on it, from a known domain squatter.
 Strange&amp;hellip;
 After refreshing a few times, it was still doing it.</description>
@@ -92,30 +92,30 @@ After refreshing a few times, it was still doing it.</description>
     
     <item>
       <title>Using HyperLogLog in production, a retrospective</title>
-      <link>https://djhworld.github.io/post/2018/03/29/using-hyperloglog-in-production-a-retrospective/</link>
+      <link>https://djharper.dev/post/2018/03/29/using-hyperloglog-in-production-a-retrospective/</link>
       <pubDate>Thu, 29 Mar 2018 12:00:00 +0000</pubDate>
       
-      <guid>https://djhworld.github.io/post/2018/03/29/using-hyperloglog-in-production-a-retrospective/</guid>
+      <guid>https://djharper.dev/post/2018/03/29/using-hyperloglog-in-production-a-retrospective/</guid>
       <description>A few years ago I was involved in a project that required us to provide a time series metric on how many concurrent users were using our products, and what quality of service they were receiving.
 On embarking on this journey, it quickly became apparent that the tricky part would be doing the count of unique concurrent users, over a set of dimensions in one minute windows. We&amp;rsquo;d run into the classic count-distinct problem.</description>
     </item>
     
     <item>
       <title>Running Go AWS Lambda functions locally</title>
-      <link>https://djhworld.github.io/post/2018/01/27/running-go-aws-lambda-functions-locally/</link>
+      <link>https://djharper.dev/post/2018/01/27/running-go-aws-lambda-functions-locally/</link>
       <pubDate>Sat, 27 Jan 2018 12:00:00 +0000</pubDate>
       
-      <guid>https://djhworld.github.io/post/2018/01/27/running-go-aws-lambda-functions-locally/</guid>
+      <guid>https://djharper.dev/post/2018/01/27/running-go-aws-lambda-functions-locally/</guid>
       <description>AWS recently announced Go support for Lambda, giving developers more choice over how their functions are written.
 In an attempt to kick the tires of the new runtime, I found myself rummaging around the open source library required when writing Lambda functions in Go, and was delighted to find a glimpse into what happens when your function is invoked. This post is a brief tour of what I’ve gathered, and describes a simple way of invoking your function in a local environment.</description>
     </item>
     
     <item>
       <title>about</title>
-      <link>https://djhworld.github.io/about/</link>
+      <link>https://djharper.dev/about/</link>
       <pubDate>Wed, 24 Jan 2018 20:32:47 +0000</pubDate>
       
-      <guid>https://djhworld.github.io/about/</guid>
+      <guid>https://djharper.dev/about/</guid>
       <description> I sometimes write and repost stuff from here on Medium, see here for my reasons for this.
  keybase: keybase.io/djhworld twitter: @djhworld code: github/djhworld  You can sometimes find me on the gophers slack organisation (@djh)
 work You can find my my CV here.
@@ -124,55 +124,55 @@ projects  caniaffordtobuy.co.uk  interests  video games computer science data en
     
     <item>
       <title></title>
-      <link>https://djhworld.github.io/demos/embed-issue/demo/</link>
+      <link>https://djharper.dev/demos/embed-issue/demo/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://djhworld.github.io/demos/embed-issue/demo/</guid>
+      <guid>https://djharper.dev/demos/embed-issue/demo/</guid>
       <description>   Flash embed: type=&#39;application/x-shockwave-flash&#39;   Video embed: type=&#39;video/quicktime&#39;   type=&#39;video/webm&#39;   type=&#39;video/mp4&#39;   Audio embed: type=&#39;audio/mpeg&#39;     </description>
     </item>
     
     <item>
       <title></title>
-      <link>https://djhworld.github.io/demos/embed-issue/supposed-to-be-audio/</link>
+      <link>https://djharper.dev/demos/embed-issue/supposed-to-be-audio/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://djhworld.github.io/demos/embed-issue/supposed-to-be-audio/</guid>
+      <guid>https://djharper.dev/demos/embed-issue/supposed-to-be-audio/</guid>
       <description>    var i = 0; setInterval(function() { i = i + 1; document.getElementById(&#34;text&#34;).innerHTML=&#34;&#34; + i + &#34; no audio content here, embedding the page instead&#34;; }, 1000);   </description>
     </item>
     
     <item>
       <title></title>
-      <link>https://djhworld.github.io/demos/embed-issue/supposed-to-be-flash/</link>
+      <link>https://djharper.dev/demos/embed-issue/supposed-to-be-flash/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://djhworld.github.io/demos/embed-issue/supposed-to-be-flash/</guid>
+      <guid>https://djharper.dev/demos/embed-issue/supposed-to-be-flash/</guid>
       <description>    var i = 0; setInterval(function() { i = i + 1; document.getElementById(&#34;text&#34;).innerHTML=&#34;&#34; + i + &#34; no flash content here, embedding the page instead&#34;; }, 1000);   </description>
     </item>
     
     <item>
       <title></title>
-      <link>https://djhworld.github.io/demos/embed-issue/supposed-to-be-video/</link>
+      <link>https://djharper.dev/demos/embed-issue/supposed-to-be-video/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://djhworld.github.io/demos/embed-issue/supposed-to-be-video/</guid>
+      <guid>https://djharper.dev/demos/embed-issue/supposed-to-be-video/</guid>
       <description>    var i = 0; setInterval(function() { i = i + 1; document.getElementById(&#34;text&#34;).innerHTML=&#34;&#34; + i + &#34; no video content here, embedding the page instead&#34;; }, 1000);   </description>
     </item>
     
     <item>
       <title></title>
-      <link>https://djhworld.github.io/demos/gomeboycolor-demo/</link>
+      <link>https://djharper.dev/demos/gomeboycolor-demo/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://djhworld.github.io/demos/gomeboycolor-demo/</guid>
+      <guid>https://djharper.dev/demos/gomeboycolor-demo/</guid>
       <description>#screen { width:300px; margin-left:auto; margin-right:auto; display:block; } .text-center { text-align:center; } #screen-div { background-color: #34383b; border: 1px #000 solid; border-radius: 12px; border-bottom-right-radius: 50px; border-bottom-left-radius: 50px; margin-left: auto; margin-right: auto; display: block; padding: 0px; width: 300px; height:175px; } h1#title { font-size:13px; color: #ebf2f5; font-style: italic; font-weight: bold; margin:0px; } h1#title small { font-family: &#34;Comic Sans MS&#34;, sans-serif; font-style: normal; font-weight: 900 !important; font-size:13px; } h1#title small span.c { color: #7d2259; } h1#title small span.</description>
     </item>
     
     <item>
       <title></title>
-      <link>https://djhworld.github.io/demos/gomeboycolor/</link>
+      <link>https://djharper.dev/demos/gomeboycolor/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://djhworld.github.io/demos/gomeboycolor/</guid>
+      <guid>https://djharper.dev/demos/gomeboycolor/</guid>
       <description>gomeboycolor     body { background-color: #472981; color: #ebf2f5; } #screen { width: 800px; margin-left: auto; margin-right: auto; display: block; } #screen-div { background-color: #34383b; border: 1px #000 solid; border-radius: 12px; border-bottom-right-radius: 50px; border-bottom-left-radius: 50px; margin-left: auto; margin-right: auto; display: block; padding: 0px; width: 800px; height: 510px; margin-top: 15px; } .buttons { margin-top: 12px; } h1#title { color: #ebf2f5; font-style: italic; font-weight: bold; } h1#title small { font-family: &#34;</description>
     </item>
     

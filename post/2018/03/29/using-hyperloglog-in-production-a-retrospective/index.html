@@ -3,6 +3,7 @@
 
 <head>
   <meta charset="utf-8">
+  <meta http-equiv="refresh" content="5;url=https://djharper.dev/post/2018/03/29/using-hyperloglog-in-production-a-retrospective/" />
 
   
   <title>Using HyperLogLog in production, a retrospective - djhworld</title>
@@ -23,10 +24,27 @@
 </head>
 
 <body class="">
-
   
 
   <div class="wrap">
+    <div class="alert alert-warning">
+    <h3>Warning</h3>
+
+    <span>
+        This page can now be found at <a href="https://djharper.dev/post/2018/03/29/using-hyperloglog-in-production-a-retrospective/">https://djharper.dev/post/2018/03/29/using-hyperloglog-in-production-a-retrospective/</a> 
+    </span>
+    <br/>
+    <br/>
+    <span>
+        Your browser should redirect to the new URL at <a href="https://djharper.dev">djharper.dev</a> in 5 seconds, but if this fails <a href="https://djharper.dev/post/2018/03/29/using-hyperloglog-in-production-a-retrospective/">please click here</a>
+    </span>
+    <br/>
+    <br/>
+    <span>
+        I've migrated my website away from github pages and will no longer be posting content here.
+    </span>
+</div>
+
     <header class="mb">
       <h1 class="h2 m-0"><a href="/" title="daniel harper">djhworld</a></h1>
       <div id="navbar">
@@ -43,10 +61,12 @@
       <hr />
     </header>
 
+
+
 <main>
 <article class="post">
   
-  <h1><a href="https://djhworld.github.io/post/2018/03/29/using-hyperloglog-in-production-a-retrospective/" title="Using HyperLogLog in production, a retrospective">Using HyperLogLog in production, a retrospective</a></h1>
+  <h1><a href="https://djharper.dev/post/2018/03/29/using-hyperloglog-in-production-a-retrospective/" title="Using HyperLogLog in production, a retrospective">Using HyperLogLog in production, a retrospective</a></h1>
   <p class="small gray">
     <time datetime="2018-03-29">Thursday, March 29, 2018</time>
 </p>
@@ -57,7 +77,7 @@
 
 <p>Our dataset was stored in Amazon S3, with <a href="https://prestodb.io/">PrestoDB</a> as our query backend, and the query we were running was slow and difficult to scale. As you can imagine, running <code>count(distinct)</code> on thousands of anonymous session IDs across millions of records isn&rsquo;t an easy problem to solve. Well, until someone pointed us in the direction of the <a href="https://prestodb.io/docs/current/functions/aggregate.html#approx_distinct"><code>approx_distinct</code></a> function.</p>
 
-<p><em><strong>tl;dr:</strong> We tried using <a href="https://en.wikipedia.org/wiki/HyperLogLog">HyperLogLog</a> over fine grained time series data in production, but at the time it was not working as well as we&rsquo;d hoped. I wanted to explore HyperLogLog further though as I thought it was cool, so spent some time building <a href="https://djhworld.github.io/hyperloglog/">HyperLogLog Playground</a>, a website to help visualise what this cool algorithm is doing under the hood.</em></p>
+<p><em><strong>tl;dr:</strong> We tried using <a href="https://en.wikipedia.org/wiki/HyperLogLog">HyperLogLog</a> over fine grained time series data in production, but at the time it was not working as well as we&rsquo;d hoped. I wanted to explore HyperLogLog further though as I thought it was cool, so spent some time building <a href="https://djharper.dev/hyperloglog/">HyperLogLog Playground</a>, a website to help visualise what this cool algorithm is doing under the hood.</em></p>
 
 <p>By trading away some degree of accuracy, <code>approx_distinct</code> gave us a result in a much quicker time, with what looked like a reasonable trade off for production use. However, after a few weeks, it was becoming obvious that, while the speed of the query was satisfactory, sometimes the result added noise. You would see that over one minute windows, the line on our graphs would deviate in a sporadic fashion.</p>
 
@@ -65,7 +85,7 @@
 
 <p>Since then, it looks like the Presto contributors <a href="https://github.com/prestodb/presto/pull/9397">implemented a change</a> to increase the precision options of <code>approx_distinct</code>, so this might have alleviated our noise problem, but we had moved on by that point. Our users liked having a near real time, accurate figure from the new pipeline.</p>
 
-<p>So while, at the time, <code>approx_distinct</code> did not work for us, I was still intrigued by what <code>approx_distinct</code> was actually doing. What made it so quick? How could it get so close to the actual figure? This line of questioning inspired me to create a small website called <a href="https://djhworld.github.io/hyperloglog/">HyperLogLog Playground</a> where I could somewhat consolidate my understanding, while learning a bit of Javascript on the way. It was a fun exercise and I hope people like it.</p>
+<p>So while, at the time, <code>approx_distinct</code> did not work for us, I was still intrigued by what <code>approx_distinct</code> was actually doing. What made it so quick? How could it get so close to the actual figure? This line of questioning inspired me to create a small website called <a href="https://djharper.dev/hyperloglog/">HyperLogLog Playground</a> where I could somewhat consolidate my understanding, while learning a bit of Javascript on the way. It was a fun exercise and I hope people like it.</p>
 
 <p><img src="/img/hyperloglog-playground.png" title="hyperloglog playground" style="max-width:40%;" />
 <img src="/img/hyperloglog-playground-add.png" title="hyperloglog playground" style=" max-width:40%;" /></p>
@@ -74,6 +94,24 @@
 
 </article>
 </main>
+<div class="alert alert-warning">
+    <h3>Warning</h3>
+
+    <span>
+        This page can now be found at <a href="https://djharper.dev/post/2018/03/29/using-hyperloglog-in-production-a-retrospective/">https://djharper.dev/post/2018/03/29/using-hyperloglog-in-production-a-retrospective/</a> 
+    </span>
+    <br/>
+    <br/>
+    <span>
+        Your browser should redirect to the new URL at <a href="https://djharper.dev">djharper.dev</a> in 5 seconds, but if this fails <a href="https://djharper.dev/post/2018/03/29/using-hyperloglog-in-production-a-retrospective/">please click here</a>
+    </span>
+    <br/>
+    <br/>
+    <span>
+        I've migrated my website away from github pages and will no longer be posting content here.
+    </span>
+</div>
+
 
 
 
@@ -86,7 +124,7 @@
                          : "");
 </script>
 <noscript>
-  <img src="https://d1lcmkb9w8fvni.cloudfront.net/me.png?u=https%3a%2f%2fdjhworld.github.io%2fpost%2f2018%2f03%2f29%2fusing-hyperloglog-in-production-a-retrospective%2f" />
+  <img src="https://d1lcmkb9w8fvni.cloudfront.net/me.png?u=https%3a%2f%2fdjharper.dev%2fpost%2f2018%2f03%2f29%2fusing-hyperloglog-in-production-a-retrospective%2f" />
 </noscript>
 
 
@@ -98,7 +136,7 @@
   
 
   var disqus_config = function () {
-  this.page.url = "https://djhworld.github.io/post/2018/03/29/using-hyperloglog-in-production-a-retrospective/";
+  this.page.url = "https://djharper.dev/post/2018/03/29/using-hyperloglog-in-production-a-retrospective/";
   this.page.identifier = "98c3622019447a7d485b2d48ec7a22bf";
   };
 
